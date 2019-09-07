@@ -1,0 +1,643 @@
+%%%
+ %
+ % Copyright (C) 2019 Ángel Iván Gladín García
+ %
+ % This program is free software: you can redistribute it and/or modify
+ % it under the terms of the GNU General Public License as published by
+ % the Free Software Foundation, either version 3 of the License, or
+ % (at your option) any later version.
+ %
+ % This program is distributed in the hope that it will be useful,
+ % but WITHOUT ANY WARRANTY; without even the implied warranty of
+ % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ % GNU General Public License for more details.
+ %
+ % You should have received a copy of the GNU General Public License
+ % along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,letterpaper]{report}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+ 
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{float}
+
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{commath}
+
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+\usepackage{longtable}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\usepackage{import}
+
+\usepackage[utf8]{inputenc}
+ 
+\usepackage{listings}
+\usepackage{color}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Oh}{\mathcal{O}} %% Notacion "O"
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\ord}{\text{ord}}
+\newcommand{\sol}{\textbf{\underline{Solución}: }} %% Solucion
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{
+        Universidad Nacional Autónoma de México\\
+        Facultad de Ciencias\\
+        Probabilidad I\\
+    \vspace{1cm}
+    \large
+        \textbf{Tarea 1}\\
+        \textbf{Técnicas de Conteo}
+}
+\author{
+    Ángel Iván Gladín García\\
+    No. cuenta: 313112470\\
+    \texttt{angelgladin@ciencias.unam.mx}
+}
+\date{29 de Agosto 2019}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Teorema}
+\newtheorem{example}{Ejemplo}
+\newtheorem{corollary}{Corolario}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definicion}
+\newtheorem{prop}{Proposicion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}
+
+\item Demuestra la version generalizada del Principio Básico del Conteo.\\
+\textit{Hint:} Utiliza las Propiedades del Producto Cartesiano de dos conjuntos A, B.\\\\
+\textit{El Principio Básico del Conteo Generalizado: } Si hay $r$ experimentos que se harán,
+y el primero de ellos tiene $n_1$ posibles resultados, y por cada uno de estos $n_1$ resultados
+hay $n_2$ posibles resultados del segundo experimento y así sucesivamente, entonces hay un
+total de $n_1 \cdot n_2 \cdot \ldots \cdot n_r$ posibles resultados de $r$ experimentos.
+\begin{proof}
+    \underline{Por inducción}\\
+    \textbf{Caso base:} Para $r=1$, como solo un experimento se hace y da $n_1$ resultados y
+    evidentemente hay $n_1$ resultados de un experimento.\\
+    \textbf{Hipótesis de inducción:} Para $r=n$ supongamos que la generalización del
+    principio básica del conteo es verdadera para un número $r$ específica de experimentos.\\
+    \textbf{Paso inductivo: } Para $r=n+1$. Si se hacen $r$ experimentos por hipótesis de inducción
+    hay $n_1 \cdot n_2 \cdot \ldots \cdot n_r$ resultados. Por el principio básico del conteo entonces
+    para $r=n+1$ entonces serían $n_1 \cdot n_2 \cdot \ldots \cdot n_r \cdot (n_{r+1})$ posibles
+    resultados.\\
+    Por el principio de inducción es verdadera para cualquier $r \in \N$.
+\end{proof}
+
+\item Una compañía de telecomunicaciones desea saber cual es la cantidad de números telefónicos de 7
+cifras dispone para telefonía fija si:
+\begin{enumerate}[label=\alph*)]
+    \item La primer cifra no puede ser 0 ó 1.\\
+    \sol Por el principio de las casillas, debemos de tener 7 casillas. En la primera de ellas,
+    sea $E_1 = \{ 2,3,4,5,6,7,8,9\}$ y $E_i = \{n \mid 0 \leq n \leq 9\}$ con
+    $2 \leq i \leq  9$. Dicho esto hay
+    $\#E_1 \cdot \#E_2 \cdot \ldots \cdot \#E_7 = 8 \cdot 10^{6} = 8,000,000$.
+
+    \item Resuelve el ejercicio anterior de nuevo asumiendo que un número telefónico no puede
+    iniciar con 911 ya que esta marcación esta reservada para emergencias\\
+    \sol Por el princio de las casillas, si fijamos las tres primeras casillas con 9, 9 y 1,
+    entonces quedan 4 casillas restantes con 10 opciones cada una, quedadando así que hay
+    $10^4$ opciones de teléfonos que inician con 911, llamemos al experimento anterior
+    $E$ con $\#E=10^4$. Por el inciso anterior tenemos a $F$ con $\#F = 8,000,000$, lo único
+    que se debe de hacer es restarlos, teniendo así $\#F - \#E = 7,990,000$.
+
+\end{enumerate}
+
+\item Un niño tiene 12 bloques de los cuales 6 son de color negro, 4 son rojos, un blanco y otro azul.
+Si el niño acomoda los bloques sobre una línea. ¿Cuántos acomodos distintos de los bloques puede hacer?\\
+\sol Lo primero que hay que hacer es calcular todas la posibles permutaciones de los bloques,
+por el momento sin importar los colores, que son $12!$. Ahora dividirlo entre el número de
+bloques que hay de cada color, quedando así:
+$$\frac{12!}{6! \cdot 4! \cdot 1! \cdot 1!} = 27720$$
+
+\item ¿De cuántas maneras podemos acomodar en una repisa, 3 libros de literatura, 2 de matemáticas y 
+otro libro de química si.
+\begin{enumerate}[label=\alph*)]
+    \item los libros pueden ser acomodados en cualquier orden?\\
+    \sol Si sí nos importa el contenido de los libros hay $6! = 720$ de acomodarlas (sin
+    restricciones), pero si no, ósea solo saber el tipo de libro en específico hay
+    $\frac{6!}{3! \cdot 2! \cdot 1!} = 60$.
+
+    \item los libros de matemáticas tienen que esta juntos y los de literatura también?\\
+    \sol Como los libros de matemáticas tiene que estar juntos, se pueden ver como un lote de
+    libros de matemáticas, y cualquier oreden de ese lote son las permutaciones que es $2!$.
+    De manera análoga con los libros de literatura, habíendo $3!$.
+    Si vemos los libros de literatura, matemáticas y química como un lote cada uno, 
+    se sigue que hay $3!$ formas de acomodar los lotes.\\
+    Con el análisis previo hay $3! \cdot 2! \cdot 3! \cdot 1! = 72$ maneras.
+
+    \item los de literatura siempre tienen que estar juntos, pero los de los otros temas pueden estar
+    acomodados en cualquier orden?\\
+    \sol Como los libros de literatura deben de estar juntos, los podemos considerar como un lote,
+    teniendo así que las formas de ordenar los libros de ese lote son $4!$. Como quedan los
+    otros 3 libros restantes, la formas de ordenarlos son $3!$.\\
+    Quedando así $4! \cdot 3! = 144$ diferentes maneras.
+\end{enumerate}
+
+\item Dos amigos $A$ y $B$ pasan las tardes jugando FIFA 19 en su PlayStation 4. Ellos jugaran 7 partidos,
+cada juego tiene 3 posibles resultados: Victoria para $A$ (lo cual es una derrota para $B$), 
+Empate y Victoria para $B$ (lo cual es una derrota para $A$). De modo que una victoria para $A$
+equivale a 1 punto, un empate equivale a $\frac{1}{2}$ punto mientras que una derrota equivale
+a 0 puntos. ¿De cuántas maneras
+\begin{enumerate}[label=\alph*)]
+    \item al jugador $A$ le es posible terminar la serie de 7 partidos, con 3 victorias, 2 empates y 2 derrotas?\\
+    \sol $\frac{7!}{3! \cdot 2! \cdot 2!} = 210$ maneras.
+
+    \item Al jugador $A$ le es posible terminar la serie de 7 partidos con 4 puntos y al jugador B con 3 puntos?\\
+    \sol De $\frac{7!}{4! \cdot 3!} = 35$ maneras distintas.
+\end{enumerate}
+
+\item Un estudiante venderá 2 libros de su coleccion de libros la cual esta integrada por 6 libros de
+matemáticas, 7 de física y 4 de economía. ¿De cuántas maneras lo puede hacer si:
+\begin{enumerate}[label=\alph*)]
+    \item ambos libros tienen que ser del mismo tema?\\
+    \sol Si toma dos libros de matemáticas, 2 de física y 4 de economía, en total son:
+    $$\binom{6}{2} + \binom{7}{2} + \binom{4}{2} = 42$$
+    \item los libros son de temas distintos?\\
+    \sol Tomando cada pareja posible de dos temas de libros posibles se tienen $\binom{3}{2} = 3$
+    que son: \{matemáticas, fisica\}, \{matemáticas, economía\} y \{física, economía\}.
+    Usando el principio de las casillas (dos casillas por cada experimento) se sigue que son:
+    $$6 \cdot 7 + 6 \cdot 4 + 7 \cdot 4 = 94$$
+\end{enumerate}
+
+\item Un comité de 3 ingenieros eléctricos y 3 ingenieros mecánicos será elegido de la plantilla
+total de ingenieros que tiene una fábrica la cual consta de 7 ingenieros eléctricos y 5 ingenieros
+mecánicos. Obten el número de formas de elegir este comité de ingenieros si:
+\begin{enumerate}[label=\alph*)]
+    \item cualquier ingeniero eléctrico y mecánico puede ser seleccionado.\\
+    \sol Para obtener de cuantas formas podemos obtener 7 ingerieros eléctricos de 3 formas distintas
+    se tiene que es $\binom{7}{3}$ y para los mecánicos son $\binom{5}{3}$, por el por el principio
+    de las casillas son:
+    $$\binom{7}{3} \cdot \binom{5}{3} = 350$$
+
+    \item un ingeniero eléctrico en particular debe de ser miembro del comité.\\
+    \sol Tomando a un ingeniero eléctrico en particular que tomamos uno y al realizar las
+    posibles combinaciones quitamos a un miembro y solo tomamos 2, que es $\binom{6}{2}$.
+    Depués obtenemos cuantas combinaciones se tienen de los ingenieros mecánicos que son
+    $\binom{5}{3}$. Por último, como al princio dejamos a un ingeniero eléctrico fijo,
+    las posibles combinaciones de éste son $1!$. Ergo, las posibles posibles formas son:
+    $$\binom{6}{2} \cdot \binom{5}{3} \cdot 1! = 150$$
+
+    \item dos ingenieros mecanicos en particular no pueden ser miembros del comité.\\
+    \sol De manera análoga al inciso anterior, fijamos a dos ingenieros eléctrico, hecho esto
+    nos queda una sola opción para el otro ing. mecánico. Depues para obtener la combinaciones
+    del ingeniero mecánico son $\binom{7}{3}$. Quedadndo así:
+    $$\binom{3}{3} \cdot \binom{7}{3} = 35$$
+\end{enumerate}
+
+
+\item Determina el número de vectores $(x_1,x_2,\ldots,x_n)$ tal que $x_i$ es igual a 0 ó 1
+y $\sum_{i=1}^{n} x_i \geq k$.\\
+\sol Si cada $x_i$, es 0 o 1, la suma de las entradas del vector en $\sum_{i=1}^{n} x_i \geq k$ es
+solo el número de entradas que son 1. Se sigue que el el número de vectores donde la suma
+de las entradas es $k$ es igual al número de vectores que tienen $k$ entradas igual a 1,
+que es $\binom{n}{k}$. El número de vectores donde la suma es al menos $k$ es igual a la suma
+del número de vectores donde la suma es exactamente $l$ de $k$ a $n$. Quedadndo así 
+$\sum_{l=k}^{n} \binom{n}{l}$.
+
+\item Una colección de arte en subasta consta de 4 Dali's, 5 Van Gogh's y 6 Picasso's. A la subasta
+acudieron 5 coleccionistas de arte asi un auditor toma nota del numero de Dali's, Van Gogh's y 
+Picasso's adquiridos por cada coleccionista.\\
+¿Cuántos registros distintos puede realizar el auditor si todos los cuadros fueron vendidos?
+\sol Lo primero que hay que obtener es el número de todas las formas que se pueden vender todas
+las obras de cada uno; que es, todas las formas en que que se pudieron vender las obras 4 obras
+de Dali, las 5 de Van Gogh y las 6 de Picasso\\
+Para esto hay que recordar que para obener todas las formas\footnote{Proposición 6.2 de la página 13
+del libro \textit{A First Course in Probability}, Sheldon Ross.} que hay de $n$ para $k$ son:
+$$\binom{n+k-1}{k-1}$$
+Entonces para obtener todas los posibles de cada obra de Dali, Van Gogh y Picasso se tiene
+respectivamente que son: $\binom{4+1-1}{5-1}$, $\binom{5+5-1}{5-1}$ y $\binom{6+5-1}{5-1}$.\\
+Ergo, la forma en la que se pueden resgitrar son:
+$$\binom{8}{4} \cdot \binom{9}{4} \cdot \binom{10}{4} = 1,852,200$$
+
+\item
+\begin{enumerate}[label=\alph*)]
+    \item Prueba que $\binom{n}{0} + \binom{n+1}{1} + \cdots + \binom{n+r}{r} = \binom{n+r+1}{r}$\\
+    \textit{Hint:} $\binom{n}{r} = \binom{n+1}{r} - \binom{n}{r-1}$
+    \begin{proof}
+        TODO
+    \end{proof}
+
+    \item Obten $\binom{n}{1} + 2\binom{n}{2} + 3\binom{n}{3} + \ldots + n\binom{n}{n}$\\
+    \textit{Hint:} Escribe de manera adecuada $i\binom{n}{i}$
+    \begin{proof}
+        Reescribiendo la expresión se tiene que es
+        $$\binom{n}{1} + 2\binom{n}{2} + 3\binom{n}{3} + \ldots + n\binom{n}{n} =
+        \sum_{i=1}^n k \binom{n}{i}$$
+        Y también hay una identidad que dice lo siguiente:
+        $$\sum_{i=1}^n i \binom{n}{i} = n \cdot 2^{n-1}$$
+        Se tratará este problema como si fueran comités:\\
+        Dadas $n$ personas, se verán de cuantas formas se puede seleccionar un comité
+        de un grupo, donde cada comté tiene un presidente. Lo primero que se hará
+        es fijar un tamaño $k$ de cada comité, tomar $k$ miembros de $\binom{n}{k}$
+        maneras, y luego nombrar un presidente de entre los miembros seleccionados
+        con $k$ opciones, dando un total de $\sum_{k=1}^{n} k \cdot \binom{n}{k}$
+        maneras de seleccionar un comité.
+
+        O de manera análoga, primero seleccionar al presidente con $n$ posibles
+        opciones, y después seleccionar a lo miembros restantes en $2^{n-1}$
+        maneras. Dando un total de $n \cdot 2^{n-1}$ formas de tomar un comité.
+
+        Teniendo así la igualdad:
+        $$\sum_{k=1}^{n} k \cdot \binom{n}{k} = n \cdot 2^{n-1}$$
+    \end{proof}
+\end{enumerate}
+
+\item De un grupo de 8 mujeres y 6 hombres que trabajan en una oficina se elegirán un grupo que será
+integrado por 3 hombres y 3 mujeres para comisión interna de Protección Civil. ¿Cuántos coomités
+es posible formar si:
+\begin{enumerate}[label=\alph*)]
+    \item dos hombres en específico se niegan a pertenecer al comité juntos?\\
+    \sol El comité que no tiene a dos hombres es
+    $\binom{8}{3} \cdot \binom{4}{3}$. Para obtener el número de comités que
+    incluye uno de los hombres que se niega son
+    $\binom{8}{3} \cdot \binom{4}{2} \cdot \binom{2}{1}$.
+
+    Por tanto el número de posibilidades que que dos hombre en especifico se nieguen a
+    pertenecer al comité son:
+    $$\binom{8}{3} \cdot \binom{4}{3} + \binom{8}{3} \cdot \binom{4}{2} \cdot \binom{2}{1} = 896$$
+
+
+    \item dos mujeres en específico se niegan a pertenecer al comité juntas?\\
+    \sol Si el comité no incluye a dos mujeres que se nieguen hay
+    $\binom{6}{3} \cdot \binom{6}{3}$. Para obtener el número de comités que incluyen
+    solo a una de las mujeres que se niegan a pertenecer son
+    $\binom{6}{2} \cdot \binom{2}{1} \cdot \binom{6}{3}$.
+
+    Por tanto el número de comités a formar son:
+    $$\binom{6}{3} \cdot \binom{6}{3} +\binom{6}{2} \cdot \binom{2}{1} \cdot \binom{6}{3} = 1000$$
+
+    \item una mujer y un hombre en específico se niegan a pertenecer al comité juntos?\\
+    \sol Hay $\binom{7}{3} \cdot \binom{5}{3}$ posibles comités cuando ninguno de los
+    2 quieren. Cuando una mujer en específico se niega a participar hay
+    $\binom{7}{2} \cdot \binom{5}{3}$. Cuando un hombre en específico se niega a
+    participar hay $\binom{7}{3} \cdot \binom{5}{2}$.
+
+    Por lo tanto el número de comités que se pueden formar son:
+    $$\binom{7}{3} \cdot \binom{5}{3} + \binom{7}{2} \cdot \binom{5}{3} + \binom{7}{3} \cdot \binom{5}{2} = 910$$
+\end{enumerate}
+
+\item En una reunión del Consejo de Seguridad de la O.N.U. delegados de 10 países donde están incluidos:
+Rusia, China, Estados Unidos e Irán serán ubicados en una fila de silla para dar una conferencia de
+prensa conjunta. ¿De cuántas maneras los pueden acomodar si los delegados de Rusia e Irán siempre
+tienen que estar juntos y el representante de China y EE.UU. no pueden estar juntos?
+
+\sol Hay 10 delegados, los delegados de Irán y Rusia siempre van a estar juntos, considerandolos
+como una sola entidad (un solo delegado) hay en total 9 ``delegados'' que puedesn ser acomodados de 
+$9!$ maneras, ahora bien, las posibles arreglos de delegados de Irán y Rusia son $2!$.
+
+Teniendo así $9! \cdot 2!$.
+
+Los delegados de China y EE.UU. no pueden estar sentados juntos. Para calcularlo, primero se
+calculará el número de formas de que los delegados de China y EE.UU. se sienten juntos y luego
+restarlo.
+
+Con los delegados de de Irán y Rusia sentados juntos, se tienen a 9 ``delegados''. Fuera de esto,
+lo que queremos es encontrar de cuantas maneras China y EE.UU. delegados se pueden sentar juntos.
+Siguiendo la misma idea, tomamos al delgado de China y EE.UU. como una sola entidad (``delegado'').
+Ahora tenemos a 8 entidades que pueden ser acomodadas de $8!$ maneras. Los delegados de China y
+EE.UU. pueden ser acomodados de $2!$ maneras posibles. También considerando a los delegados de
+Rusia e Irán pueden ser acomodados de $2!$ maneras.
+
+Finalmente restando el número de acomodos posibles de China y EE.UU sentados juntos y, Rusia e Irán
+sentados juntos, del número de acomodos en el cual Rusia e Irán se sientas juntos son:
+$$9! \cdot 2! - 8! \cdot 2! \cdot 2! = 564,480$$
+
+\item Sean $A,B,C$ conjuntos. Prueba que
+\begin{enumerate}[label=\alph*)]
+    \item Conmutatividad.
+    \begin{proof}
+        Por demostrar $A \cup B = B \cup A$.
+        
+        Suponemos que $x \in A \cup B$. Entonces $x \in A$ o $x \in B$ o $x \in A \cap B$ lo
+        cual escribimos $x \in B \cup A$. Por tanto $A \cup B = B \cup A$.
+    \end{proof}
+
+    \begin{proof}
+        Por demostrar $A \cap B = B \cap A$.
+
+        Suponemos que $x \in A \cap B$. Si $x$ está en ambos $A$ y $B$, entonces podemos decir que
+        $x$ está en ambos $B$ y $A$ o $x \in B \cap A$. Por tanto $A \cap B = B \cap A$.
+    \end{proof}
+
+    \item Asociatividad.
+    \begin{proof}
+        Por demostrar que $A \cup (B \cup C) = (A \cup B) \cup C$.
+
+        Suponemos que $x \in (A \cup B) \cup C$. Entonces se sigue que $x \in A \cup B$
+        (lo que significa que $x \in A$ o $x \in B$) o $x \in C$. Por tanto podemos decir
+        que $x \in A$ o $x \in B \cup C$ o en mejor $x \in A \cup (B \cup C)$. Por
+        tanto $(A \cup B) \cup C \subseteq A \cup (A \cup C)$.
+
+        Para mostrar que $(A \cup B) \cup C \supseteq A \cup (B \cup C)$ es análogo.
+    \end{proof}
+
+    \begin{proof}
+        Por demostrar que $A \cap (B \cap C) = (A \cap B) \cap C$.
+
+        Suponemos que $x \in (A \cap B) \cap C$. Entonces $x \in A \cap B$ y $x \in C$.
+        Así que $x \in A$ y $x \in B \cap C$ o mejor $x \in A \cup (B \cup C)$. Por
+        tanto $(A \cup B) \cup C \subseteq A \cup (A \cup C)$.
+
+        Para mostrar que $(A \cap B) \cap C \supseteq A \cap (B \cap C)$ es análogo.
+    \end{proof}
+
+    \item Distributividad.
+    
+    \begin{proof}
+        Por demostrar $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$.
+
+        Primero se demostrará que $A \cup (B \cap C) \subset (A \cup B) \cap (A \cup C)$.
+
+        Sea $x \in A \cup (B \cap C)$
+        \begin{align*}
+            &x \in A \quad \lor \quad x \in B \cap C\\
+            &\implies x \in A \quad \lor \quad (x \in B \land x \in C)\\
+            &\implies (x \in A \lor x \in B) \quad \land \quad (x \in A \lor x \in C)\\
+            &\implies (x \in A \cup B) \quad \land \quad (x \in A \cup C)\\
+            &\implies x \in (A \cup B) \cap (A \cup C) && \text{(1)}
+        \end{align*}
+        Por lo tanto $A \cup (B \cap C) \subset (A \cup B) \cap (A \cup C)$.
+
+        La otra contención es $(A \cup B) \cap (A \cup C) \subset (A \cup C)$
+        Sea $x \in (A \cup B) \cap (A \cup C)$
+        \begin{align*}
+            &x \in A \cup B \quad \land \quad x \in B \cup C\\
+            &\implies (x \in A \quad \lor \quad x \in B) \quad \land \quad (x \in A \quad \lor \quad x \in C)\\
+            &\implies x \in A \quad \lor \quad (x \in B \land x \in C)\\
+            &\implies x \in A \quad \lor \quad (x \in B \cap C)\\
+            &\implies x \in A (B \cup C) && \text{(2)}
+        \end{align*}
+        Por lo tanto $(A \cup B) \cap (A \cup C) \subset A \cup (A \cap C)$
+
+        De $(1)$ y $(2)$ se tiene que $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$.
+    \end{proof}
+
+    \begin{proof}
+        Por demostrar $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$.
+        
+        Análogo al anterior.
+    \end{proof}
+
+
+    \item $A \cup A = A$, $A \cap A = A$
+    \begin{proof}
+        TODO
+    \end{proof}
+
+    \item $A \subseteq A \cup B$, $A \cap B \subseteq A$
+    \begin{proof}
+        TODO
+    \end{proof}
+
+    \item $A \cup \varnothing = A$, $A \cap \varnothing = \varnothing$
+    \begin{proof}
+        TODO
+    \end{proof}
+
+    \item $A \cup (A \cap B) = A$, $A \cap (A \cup B) = A$
+    \begin{proof}
+        TODO
+    \end{proof}
+
+    \item Si $A \subseteq C$ y $B \subseteq C$ entonces $A \cup B \subseteq C$
+    \begin{proof}
+        TODO
+    \end{proof}
+
+    \item Si $C \subseteq A$ y $C \subseteq B$ entonces $C \subseteq A \cap B$
+    \begin{proof}
+        TODO
+    \end{proof}
+
+    \item Si $A \subset B$ y $B \subset C$ entonces $A \subset C$
+    \begin{proof}
+        TODO
+    \end{proof}
+
+    \item Si $A \subseteq B$ y $B \subseteq C$ entonces $A \subseteq C$
+    \begin{proof}
+        TODO
+    \end{proof}
+
+    \item Si $A \subset C$ y $B \subseteq C$ ¿Será cierto que $A \subset C$?
+    \begin{proof}
+        TODO
+    \end{proof}
+
+    \item Si $x \in A$ y $A \subseteq B$. ¿Será necesariamente que $x \in B$?
+    \begin{proof}
+       TODO 
+    \end{proof}
+
+    \item $A \setminus (B \cap C) = (A \setminus B) \cup (A \setminus C)$ 
+    \begin{proof}
+        Por contención:\\
+        Por demostrar que $(A \setminus B) \cup (A \setminus C) \subseteq A \setminus (B \cap C)$
+        Sea $x \in (A \setminus B) \cup (A \setminus C)$. Entonces $x \in A \setminus B$
+        o $x \in A \setminus B$. Sin pérdida de generalidad, asumimos que $x \in A \setminus B$.
+        Entonces $x \in A$ y $X \notin B$. Por tanto, $x \in A$ y $x \notin B \cap C$.
+        Ergo $x \in A \setminus (B \cap C)$.
+
+        Por demostrar que $A \setminus (B \cap C) \subset (A \subseteq B) \cup (A \setminus C)$.
+        Sea $x \in A \setminus (B \cap C)$. Entonces $x \in A$ y $x \notin (B \cap C)$.
+        Por tanto $x \in A$, y $x \notin B$ o $x \notin C$. Sin perdida de generalidad, asumimos
+        que $x \notin B$. Entonces se tiene que $x \in A$ y $x \notin B$ y así $x \in A \setminus B$.
+        Por tanto $x \in (A \setminus B) \cup (A \setminus C)$.
+
+        Ergo $(A \setminus B) \cup (A \setminus C) = A \setminus (B \cap C)$.
+
+    \end{proof}
+
+\end{enumerate}
+
+\item Prueba las leyes de De Morgan
+\begin{enumerate}
+    \item $(A \cup B)^c = A^c \cap B^c$
+    \begin{proof}
+        Sea $x \in (A \cup B)^c$. Entonces $x \notin A \cup B$. Así $x \notin A$ y $x \notin B$, es
+        decir, $x \in A^c \cap B^c$ así $(A \cup B)^c \subseteq A^c \cap B^c$. Ahora sea
+        $x \in A^c \cap B^c$. Entonces $x \in A^c$ y $x \in B^c$. Así $x \notin A$ y $x \notin B$,
+        es decir, $x \notin A \cap B$ así $x \in (A \cap B)^c$. Por tanto $A^c \cap B^c \subseteq (A \cup B)^c$.
+        Dado que $(A \cap B)^c \subseteq A^c \cup B^c$ y $(A \cap B)^c \supseteq A^c \cap B^c$.
+        Ergo $(A \cup B)^c = A^c \cap B^c$.
+    \end{proof}
+
+    \item $(A \cap B)^c = A^c \cup B^c$
+    \begin{proof}
+        Sea $x \in (A \cap B)^c$. Entonces $x \notin A \cap B$. Así $x \notin A$ y $x \notin B$. 
+        Por lo tanto $x \in A^c$ o $x \in B^c$, es
+        decir, $x \in A^c \cup B^c$ así $(A \cap B)^c \subseteq A^c \cup B^c$. Ahora sea
+        $x \in A^c \cup B^c$. Entonces $x \in A^c$ o $x \in B^c$ así $x \notin A$ y $x \notin B$,
+        es decir, $x \notin A \cap B$ así $x \in (A \cap B)^c$. Por tanto $A^c \cup B^c \subseteq (A \cap B)^c$.
+        Dado que $(A \cap B)^c \subseteq A^c \cup B^c$ y $(A \cap B)^c \supseteq A^c \cup B^c$.
+        Ergo $(A \cap B)^c = A^c \cup B^c$.
+    \end{proof}
+\end{enumerate}
+
+\item Prueba
+\begin{enumerate}
+    \item $A \setminus B = B^c \setminus A^c$
+    \begin{proof}
+        TODO
+    \end{proof}
+
+    \item $A \cap (B \setminus C) = (A \cap B) \setminus (A \cap C)$
+    \begin{proof}
+        TODO
+    \end{proof}
+\end{enumerate}
+
+\item Prueba el Teorema del Binomio. Sean $x$, $y$ $\in \R$ y $n \in \N$. Entonces:
+\[
+    (x+y)^n = \sum_{i=0}^{n} \binom{n}{i} x^i y^{n-i}
+\]
+\begin{proof}
+    Tomando el lado izquierdo de la igualdad, el producto de $(x+y)$ son $n$ copias de ella.
+    \[
+        (x+y)^n = \underbrace{(x+y)(x+y) \cdots (x+y)}_{n \text{ veces}}
+    \]
+    Ahora expandiendo esta expresión y multiplicando todos los términos. Como hay $n$ factores,
+    cada monomío va a tener un variable en cada factor, y por tanto el grado va a ser de $n$.
+    Más específico, cada monomío será de la forma $x^i y^{n-i}$ para alguna
+    $i \in \{ 0,1,2, \ldots, n \}$ representando cuantas veces $x$ fue escogido.
+
+    El coeficiente $x^k y^{n-i}$ es el número de maneras de escoger $x$ exactamente $i$ veces.
+    Esto es equivalente a escoger un subconjunto de $k$ de los $n$ factores de los cuales se
+    escogen $x$ (con $y$ siendo escogida del resto). Por definición, hay $\binom{n}{i}$
+    subconjuntos, y por tanto el coeficiente de $x^k y^{n-i}$ es $\binom{n}{i}$.
+    
+    Ergo, sumando sobre todos los diferente monomíos se tiene que:
+    $$(x+y)^n = \sum_{i=0}^{n} \binom{n}{i} x^i y^{n-i}$$
+\end{proof}
+
+\item Prueba $A \times (B \cup C) = (A \times B) \cup (A \times C)$
+\begin{proof}
+    \begin{align*}
+        A \times (B \cup C)
+        &= \{ (x,y): (x \in A) \land (y \in B \cup C)\} && \text{Def. produto cartesiano}\\
+        &= \{ (x,y): (x \in A) \land (y \in B) \lor (y \cap C)\} && \text{Def. de $\cup$}\\
+        &= \{ (x,y): (x \in A) \land (x \in A) \land (y \in B) \lor (y \in C)\} && P = P \lor P\\
+        &= \{ (x,y): ((x \in A) \land (y \in B)) \lor ((x \in A) \land (y \in C)) \} && \text{Reacomodo}\\
+        &= \{ (x,y): (x \in A) \land (y \in B) \} \cup \{ (x,y): (x \in A) \land (y \in C) \} && \text{Def. de $\cup$}\\
+        &= (A \times B) \cup (A \times C) && \text{Def. de $\times$} 
+    \end{align*}
+\end{proof}
+
+\item Si $A = B \cap C$. Determina si es cierto o no
+\begin{enumerate}
+    \item $A \times A = (B \times B) \cap (C \times C)$\\
+    Cierto.
+
+    \item $A \times A = (B \times C) \cap (C \times B)$\\
+    Falso.
+\end{enumerate}
+
+
+\item Prueba que una de las dos identidades siguientes es siempre correcta y la otra algunas veces
+es falsa:
+\begin{enumerate}
+    \item $A \setminus (B \setminus C) = (A \setminus B) \cup C$
+    
+    TODO
+
+    \item $A \setminus (B \cup C) = (A \setminus B) \setminus C$
+    
+    TODO
+\end{enumerate}
+
+\item Sea $\Lambda$ una clase de conjuntos. Prueba que
+$$B \setminus \bigcup_{A \in \Lambda} A = \bigcap_{A \in \Lambda} (B \setminus A)$$
+\begin{proof}
+    \begin{align*}
+        & x \in B \setminus \bigcup_{A \in \Lambda} A\\
+        &\iff x \in B \quad \land \quad x \notin \bigcup_{A \in \Lambda} A\\
+        &\iff x \in B \quad \land \quad x \notin A, \forall A \in \Lambda\\
+        &\iff x \in B \setminus A, \quad \forall A \in \Lambda\\
+        &\iff x \in \bigcap_{A \in \Lambda} (B \setminus A)\\
+        &\therefore B \setminus \bigcup_{A \in \Lambda} A = \bigcap_{A \in \Lambda} (B \setminus A)
+    \end{align*}
+\end{proof}
+
+\iffalse
+\item Prueba el principio de inclusión-exclusión.
+$$P(\bigcup_{i=1}^{n} A_i) = \sum_{i=1}^{n} P(A_i) - \sum_{1 \leq i < j \leq n } P(A_i \cap A_j)
++ \ldots + (-1)^{n+1} P(A_1 \cap \ldots \cap A_n)$$
+\begin{proof}
+    YA
+\end{proof}
+\fi
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.9]{gato.png}
+    \caption{No la acabé toda la tarea :(}
+\end{figure}
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
