@@ -1,0 +1,216 @@
+%%%
+ %
+ % Copyright (C) 2019 Ángel Iván Gladín García
+ %
+ % This program is free software: you can redistribute it and/or modify
+ % it under the terms of the GNU General Public License as published by
+ % the Free Software Foundation, either version 3 of the License, or
+ % (at your option) any later version.
+ %
+ % This program is distributed in the hope that it will be useful,
+ % but WITHOUT ANY WARRANTY; without even the implied warranty of
+ % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ % GNU General Public License for more details.
+ %
+ % You should have received a copy of the GNU General Public License
+ % along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,letterpaper]{report}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{float}
+
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{commath}
+
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+\usepackage{longtable}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\usepackage{import}
+
+\usepackage[utf8]{inputenc}
+ 
+\usepackage{listings}
+\usepackage{color}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Oh}{\mathcal{O}} %% Notacion "O"
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\ord}{\text{ord}}
+\newcommand{\sol}{\textbf{\underline{Solución}: }} %% Solucion
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{
+        Universidad Nacional Autónoma de México\\
+        Facultad de Ciencias\\
+        Probabilidad I\\
+    \vspace{1cm}
+    \large
+        \textbf{Tarea 2}\\
+        \textbf{Propiedades Básicas de la Probabilidad}
+}
+\author{
+    Ángel Iván Gladín García\\
+    No. cuenta: 313112470\\
+    \texttt{angelgladin@ciencias.unam.mx}
+}
+\date{-1 de Septiembre 2019}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Teorema}
+\newtheorem{example}{Ejemplo}
+\newtheorem{corollary}{Corolario}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definicion}
+\newtheorem{prop}{Proposicion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}
+
+\item Imaginemos el siguiente experimento aleatorio. ``Se Lanza un dado continuamente hasta que
+caiga un 6 y en ese momento dejamos de lanzar el dado''.
+
+\begin{itemize}
+    \item Describe el Espacio Muestral asociado a este Experimento Aleatorio
+    
+
+    \item Sea $E_n$ el evento que denota: El número de lanzamientos necesarios hasta completar el
+    experimento. ¿Cuáles puntos del espacio muestral están contenidos en $E_n$?
+
+
+    \item ¿Qué representa $(\cup_{n=1}^{\infty} E_n)^c$ en términos del experimento aleatorio?
+    
+    
+\end{itemize}
+    
+    
+\item Tres individuos $A$, $B$ , $C$ se turnan para lanzar una moneda. Al primero que le salga
+``Águila'' gana. El espacio muestral asociado a este experimento puede ser definido como:
+\[
+    S =
+    \begin{cases}
+        1, 01, 001, 0001, \ldots,\\
+        0000\ldots
+    \end{cases}
+\]
+
+\begin{itemize}
+    \item Interpreta el Espacio Muestral
+    \item Define los siguientes eventos en terminos de $S$
+
+    \begin{enumerate}[label=\alph*)]
+        \item $A$ gana = $A$
+        \item $B$ gana = $B$
+        \item $(A \cup B)^c$
+        
+        Asume que $A$ lanza primero la moneda, denoganar lanza $B$, de no ganarlanza $C$ y en
+        caso de no ganar nadie se repite el proceso.    
+    \end{enumerate}
+
+\end{itemize}
+
+\item Si al jugar \textbf{Poker} asumimos que las $\binom{52}{2}$ manos son igualmente probables.
+¿Cuál es la probabilidad de que nos hayan repartido:
+
+\begin{itemize}
+    \item una Flor? \textbf{Decimos que una mano de poker es una flor si las 5 cartas de la mano son
+    del mismo palo} %$\spadesuit, \vardiamond, \clubsuit, \varheart$.
+    
+    
+    \item un Par?
+    
+
+    \item dos Pares?
+    
+    \item una Tercia?
+    
+    \item un Poker? \textbf{Tenemos un Poker cuando la mano que nos tocaron contiene 4 cartas con la
+    misma denominación y de diferente palo}
+    
+\end{itemize}
+
+\item Los coeficientes de la ecuación cuadrática $x^2 + bx + c$ están determinados al lanzar un par
+de dados, el resultado del primer dado determina el valor de $b$ y el del segundo dado el valor de
+$c$. Obtén la probabilidad de que la ecuación tenga soluciones reales.
+
+\item Dos números $m$ y $n$ son llamados "primos relativos" si el 1 es el único divisor común
+positivo entre ambos. Así por ejemplo el 8 y el 5 son primos relativos, mientras el 8 y 6 no lo son.
+Si un nuúmero es seleccionado al azar del conjunto $\{ 1, 2, 3,\ldots, 63 \}$ . Obtén la
+probabilidad de que este número sea primo relativo con el 63.
+
+\item Una clase de Biología tiene 33 alumnos inscritos. Si 17 de ellos sacaron 10's en el primer
+examen parcial y 14 de ellos sacaron 10's en el segundo examen parcial mientras 11 alumnos no
+obtuvieron un 10's en ninguno de estos dos exámenes. ¿Cuál es la probabilidad de que un estudiante
+seleccionado al azar de esta clase haya sacado 10's en ambos exámenes?
+
+\item Una terapeuta acomodara al azar a 5 matrimonios sobre una fila para realizar una actividad.
+Obtén la probabilidad de que no haya algun esposo sentado junto a su mujer sobre la fila.
+
+
+    
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
