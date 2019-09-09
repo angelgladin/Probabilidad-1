@@ -201,6 +201,93 @@ seleccionado al azar de esta clase haya sacado 10's en ambos exámenes?
 \item Una terapeuta acomodara al azar a 5 matrimonios sobre una fila para realizar una actividad.
 Obtén la probabilidad de que no haya algun esposo sentado junto a su mujer sobre la fila.
 
+\item Cinco personas $A,B,C,D$ serán acomodados en una fila de sillas para hacer una actividad 
+conjunta. Asume que cualquier acomodo de los personas es igualmente probable. ¿Cuál es la
+probabilidad de que:
+\begin{itemize}
+    \item haya exactamente una persona entre $A$ y $B$?
+    \item hayan exactamente dos personas entre $A$ y $B$?
+    \item hayan exactamente tres personas entre $A$ y $B$?
+\end{itemize}
+
+\item Michelle juega al Blackjack en un casino. El dealer le reparte 2 cartas de la baraja.
+¿Cuál es la probabilidad de que ella gane en el primer intento?. Esto es que ella haya
+recibido un $As$ y algun 10's, J, Q, K de cualquier palo?
+
+\item Para cualquier sucesión de eventos $E_1, E_2, \ldots$ prueba que es posible definir una
+nueva sucesión de eventos $F_1, F_2, \ldots$ ``disjunto'' (Esto es que $F_iF_j =\emptyset$
+si $i \not=$ j) tal que:
+nn
+\[
+    \bigcup_{i=1}^{n} F_i = \bigcup_{i=1}^{n} E_i \quad \forall n \in \N
+\]
+
+\item Sean $P_1$ y $P_2$ dos funciones de probabilidad definidas en $\Omega$. Si Definimos una
+nueva función $P$ dada por:
+\[
+    P(A) = \frac{P_1(A)+P_2(A)}{2} \quad \text{si} \quad A \in \Omega
+\]
+Demuestra que $P$ es una función de probabilidad sobre $\Omega$.
+
+\item Sea $P$ una función de probabilidad en $\Omega= \{ A,B \}$ , tal que: $P(A)=p$ y
+$P(B)=1-p$ donde $0 \leq p \leq1$.
+Definimos $\Q$ otra función en $\Omega$:
+\[
+    \Q(\omega) = [P(\omega)]^2 \quad \text{si} \quad \omega \in \Omega
+\]
+¿Para qué valores de $p$ la función $\Q$ es una probabilidad?
+
+\item Sean $P_1, P_2, \ldots, P_k$ funciones de probabilidad en $\Omega$. Sean
+$a_1, a_2, \ldots, a_k$ una sucesión de números. ¿Qué condiciones deben de satisfacer las
+$a_i's$ para que: $\sum_{i=1}^{k} a_i P_i$ sea una función de probabilidad?
+
+\item Sean $A,B,C \in S$ eventos. Prueba que:
+
+La probabilidad de que exactamente dos de estos eventos ocurra es:
+\[
+    P(AB) + P(AC) + P(BC) - 3P(ABC)
+\]
+
+\item Prueba que $P(A_i) = 1$ para toda $i \geq 1$ entonces $P(\bigcap_{i=0}^{\infty} A_i) = 1$.
+
+\textit{Hint}: Usa la Desigualdad de Boole
+
+\item Sean $E,F \in S$ dos eventos. Decimos que: $E \sim $F si $P(A \triangle B) = 0$.
+Prueba que ($\sim$) es de equivalencia.
+
+\item Prueba el principio de inclusión-exclusión.
+\[
+    P(\bigcup_{i=1}^{n} A_i) = \sum_{i=1}^{n} P(A_i) - \sum_{1 \leq i < j \leq n } P(A_i \cap A_j)
+    + \ldots + (-1)^{n+1} P(A_1 \cap \ldots \cap A_n)
+\]
+
+\item Leer y desarrollar el problema ``(6a)- \textbf{Probabilidad y una Paradoja''
+[Ross-8th. Ed]- pp 46-48}
+
+\item Dado un conjunto $S$. Si para alguna $k \geq 1$. Se tiene que $S_1, S_2, \ldots, S_k$ son
+subconjuntos mutuamente excluyetes de $S$ de $S$ talque $\bigcup_{i=1}^{k} S_i = S$ entonces decimos
+que la clase $\{ S_1, S_2, \ldots, S_k \}$ es una \textbf{Partición} de $S$. Sea $T_n$ el número
+de diferentes particiones de $\{ 1, 2, \ldots , n \}$. Así por ejemplo tenemos que
+$T_1 = 1$ (La única partición posible es $S_1 = \{ 1 \}$ y $T_2 = 2$ (Las dos particiones
+posibles de un conjunto de dos elementos son $\{ \{ 1, 2 \}, \{ \{ 1 \}, \{ 2 \} \} \}$).
+
+\begin{itemize}
+    \item Exhibe las particiones y muestra que $T_3 = 5$, $T_4 = 15$.
+    \item Demuestra que
+    \[
+        T_{n+1} = 1 + \sum_{k=1}^{n} \binom{n}{k} T_k
+    \]
+    Usar este resultado para culcular $T_{10}$
+
+    A esta serie de números $T_i's$ se les conoces como \textbf{Números de Bell}.
+
+    \item Exhibe las primeras 5 filas del \textbf{Triángulo de Bell}.
+    
+    \item Realiza una breve semblanza de dos de los mas grandes matemáticos del Siglo XX.
+    \textbf{Srinivasa Ramanujuan} y \textbf{Eric Bell}.
+
+
+\end{itemize}
 
     
 \end{enumerate}
