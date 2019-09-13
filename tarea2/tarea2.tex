@@ -18,7 +18,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[11pt,letterpaper]{report}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.5in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 
@@ -44,15 +44,15 @@
 \usepackage{import}
 
 \usepackage[utf8]{inputenc}
- 
+
 \usepackage{listings}
 \usepackage{color}
- 
+
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
- 
+
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},   
     commentstyle=\color{codegreen},
@@ -71,7 +71,7 @@
     showtabs=false,                  
     tabsize=2
 }
- 
+
 \lstset{style=mystyle}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -105,8 +105,12 @@
     Ángel Iván Gladín García\\
     No. cuenta: 313112470\\
     \texttt{angelgladin@ciencias.unam.mx}
+    \and
+    Mario Navarrete Baltazar\\
+    No. cuenta: 315218413\\
+    \texttt{qwertyuiop@ciencias.unam.mx}
 }
-\date{-1 de Septiembre 2019}
+\date{13 de Septiembre 2019}
 \maketitle
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -127,18 +131,22 @@ caiga un 6 y en ese momento dejamos de lanzar el dado''.
 
 \begin{itemize}
     \item Describe el Espacio Muestral asociado a este Experimento Aleatorio
-    
+
+    \sol El espacio muestral es: $S = (n,x_1,...,X_n-1), n \geq 1, x_1 \not= 6, i=1,...,n-1$ 
 
     \item Sea $E_n$ el evento que denota: El número de lanzamientos necesarios hasta completar el
     experimento. ¿Cuáles puntos del espacio muestral están contenidos en $E_n$?
 
+    \sol Supongamos que el resultado es $(n,x_1,...,x_n,x_{n-1})$ si el primer 6 aparece en el
+    lanzamiento $n$, y $x_i$ aparece en el lanzamiento, $i, i=1,...,n-1 .$
 
     \item ¿Qué representa $(\cup_{n=1}^{\infty} E_n)^c$ en términos del experimento aleatorio?
-    
-    
+
+    \sol Representa el evento en el cual el 6 nunca aparece.    
+
 \end{itemize}
-    
-    
+
+
 \item Tres individuos $A$, $B$ , $C$ se turnan para lanzar una moneda. Al primero que le salga
 ``Águila'' gana. El espacio muestral asociado a este experimento puede ser definido como:
 \[
@@ -151,15 +159,38 @@ caiga un 6 y en ese momento dejamos de lanzar el dado''.
 
 \begin{itemize}
     \item Interpreta el Espacio Muestral
-    \item Define los siguientes eventos en terminos de $S$
+    
+    \sol En este experimento los individuos $A$, $B$ , $C$ se turnan para tirar una modena y gana
+    el primero que obtenga una ``águila''. En este espacio el \texttt{0} está denotado que salió
+    ``sol'' y el \texttt{1} se denota que salió águila. Viendo los casos de $S$; en el
+    primero podemos ver los 0's (si hay) precedidos del 1 como cuantas veces (denotado por el
+    número de 0's) se tiraron soles hasta que se obtuvo una águila. En el segundo caso dondee es
+    una cadena de 0's significa que nunca se obtuvo águila.
+
+    \item Define los siguientes eventos en terminos de $S$.
+    
+    Asume que $A$ lanza primero la moneda, denoganar lanza $B$, de no ganarlanza $C$ y en
+    caso de no ganar nadie se repite el proceso.    
+
+    \sol (Asumiendo que $A$ tiró, luego $B$ y al final $C$ y así consecutivamente.)
 
     \begin{enumerate}[label=\alph*)]
         \item $A$ gana = $A$
+        
+        $A$ gana si y solo si hay $3n$ 0's precedidos de él (un \texttt{1}),
+        ósea $\underbrace{0 \cdots 0}_{3n} 1$ con $n \in \N$.
+
         \item $B$ gana = $B$
+        
+        $B$ gana si y solo si hay $3n+1$ 0's precedidos de él (un \texttt{1}),
+        ósea $\underbrace{0 \cdots 0}_{3n+1} 1$ con $n \in \N$.
+
         \item $(A \cup B)^c$
         
-        Asume que $A$ lanza primero la moneda, denoganar lanza $B$, de no ganarlanza $C$ y en
-        caso de no ganar nadie se repite el proceso.    
+        Este evento significa que $C$ ganó o nadie ganó. Para definir el evento en el que $C$ ganó
+        sería análogo a los incisos anteriores, ósea $\underbrace{0 \cdots 0}_{3n+2} 1$, y para
+        definir que nadie ganó sería $000\cdots$.
+        
     \end{enumerate}
 
 \end{itemize}
@@ -170,17 +201,25 @@ caiga un 6 y en ese momento dejamos de lanzar el dado''.
 \begin{itemize}
     \item una Flor? \textbf{Decimos que una mano de poker es una flor si las 5 cartas de la mano son
     del mismo palo} %$\spadesuit, \vardiamond, \clubsuit, \varheart$.
-    
+
+    \sol $4\binom{13}{5}/\binom{52}{5}$.
     
     \item un Par?
-    
+
+    \sol $13\binom{4}{2}\binom{12}{3}\binom{4}{1}\binom{4}{1}\binom{4}{1}/\binom{52}{5}$.
 
     \item dos Pares?
+
+    \sol $\binom{13}{2}\binom{4}{2}\binom{4}{2}\binom{44}{1}/\binom{52}{5}$
     
     \item una Tercia?
-    
-    \item un Poker? \textbf{Tenemos un Poker cuando la mano que nos tocaron contiene 4 cartas con la
-    misma denominación y de diferente palo}
+
+    \sol $13\binom{4}{3}\binom{12}{2}\binom{4}{1}\binom{4}{1}/\binom{52}{5}$
+
+    \item un Poker? \textbf{Tenemos un Poker cuando la mano que nos tocaron contiene 4 cartas con
+    la misma denominación y de diferente palo}
+
+    \sol $13\binom{4}{4}\binom{48}{1}/\binom{52}{5}$
     
 \end{itemize}
 
@@ -188,39 +227,155 @@ caiga un 6 y en ese momento dejamos de lanzar el dado''.
 de dados, el resultado del primer dado determina el valor de $b$ y el del segundo dado el valor de
 $c$. Obtén la probabilidad de que la ecuación tenga soluciones reales.
 
-\item Dos números $m$ y $n$ son llamados "primos relativos" si el 1 es el único divisor común
+\sol Como cada dado en cada una de sus caras tiene valores del 1 al 6, y el valor de $b$ está
+determinado por el valor del dado y lo mismo para $c$, entonces se tiene que $|\Omega|=36$.
+Por otro lado, la ecuación tiene raíces reales si y solo si $b^2 - 4c \geq 0$, entonces los valores
+$(b,c)$ que satisfacen esa condición son 
+\begin{multline*}
+    (2,1),(3,1),(3,2),(4,1),(4,2),(4,3),(4,4),(5,1)(5,2),(5,3),(5,4),\\
+    (5,5),(5,6),(6,1),(6,2),(6,3),(6,4),(6,5),(6,6)
+\end{multline*}
+siendo 19 parejas. Ergo la probabilidad es $\frac{19}{36}$.
+
+\item Dos números $m$ y $n$ son llamados ``primos relativos'' si el 1 es el único divisor común
 positivo entre ambos. Así por ejemplo el 8 y el 5 son primos relativos, mientras el 8 y 6 no lo son.
 Si un nuúmero es seleccionado al azar del conjunto $\{ 1, 2, 3,\ldots, 63 \}$ . Obtén la
 probabilidad de que este número sea primo relativo con el 63.
+
+\sol Los unicos divisores primos de 63 son 3 y 7. Entonces, el numero seleccionado es primero relativo a 63 si y solo si no es divisible por 3 o 7.
+
+Sean los eventos.
+
+A:El resultado es divisible entre 3.
+
+B:El resultado es divisible entre 7.
+
+AB:El resultado es divisible entre 3 y 7.
+
+Entonces,
+A=$\left\lbrace 3,6,9,12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57,60,63\right\rbrace = 21 numeros$
+
+B=$\left\lbrace 7, 14, 21, 28, 35, 42, 49, 56, 63 \right\rbrace = 9 numeros $
+
+y AB =$\left\lbrace 21, 42, 63 \right\rbrace = 3 numeros $
+
+Por lo tanto, $P(A) = 21/63$, $P(B) = 9/63$ y $P(AB) = 3/63$.
+
+Para encontrar la probabilidad de que un numero es primo relativo a 63, tenemos que encontrar la probabilidad que un numero no es disible por 3 esto es $P(AB)^c$
+
+En general,
+$P(A^cB^c) = P(AUB)$
+
+Como
+
+$P(AUB)=P(A)+P(B)-P(AB)$
+
+Entonces
+
+$P(A^cB^c)=1-[P(A)+P(B)-P(AB)]
+          =1-P(A)-P(B)+P(AB)$
+
+Sustituyendo
+
+$P(A)=21/63 , P(B)=9/63 y P(AB)=2/63 en P(A^cB^c)= 1 -P(A)-P(B)+P(AB)$
+
+Obtenemos
+
+$P(A^cB^c) = 1-21/63-9/63+3/63 = 63-21-9+3/63 = 36/63 = 4/7 $
+
+Por lo tanto:
+
+La probababilidad de que el numero sea primo relativo a 63 es 11/7.          
+
 
 \item Una clase de Biología tiene 33 alumnos inscritos. Si 17 de ellos sacaron 10's en el primer
 examen parcial y 14 de ellos sacaron 10's en el segundo examen parcial mientras 11 alumnos no
 obtuvieron un 10's en ninguno de estos dos exámenes. ¿Cuál es la probabilidad de que un estudiante
 seleccionado al azar de esta clase haya sacado 10's en ambos exámenes?
 
+\sol TODO
+
 \item Una terapeuta acomodara al azar a 5 matrimonios sobre una fila para realizar una actividad.
 Obtén la probabilidad de que no haya algun esposo sentado junto a su mujer sobre la fila.
 
-\item Cinco personas $A,B,C,D$ serán acomodados en una fila de sillas para hacer una actividad 
+\sol Hay $\binom{10}{5}$ resultados. Podemos pensar en un experimento de 6 fases, en la prier fase, 5 personas de las 5 parejas son seleccionadas, en los 5 que faltan, 1 de los 2 miembros son seleccionados.
+
+Por lo tanto
+
+Hay $\binom{5}{5}2^5$ posibles resultados en el cual los 5 miembros seleccionados no estan relacionados.Obteniendo la probabilidad de:
+$P(N) = \binom{5}{5}2^5/\binom{10}{5}$
+
+
+\item Cinco personas $A,B,C,D,E$ serán acomodados en una fila de sillas para hacer una actividad 
 conjunta. Asume que cualquier acomodo de los personas es igualmente probable. ¿Cuál es la
 probabilidad de que:
+
+(Solución con orden)
+
 \begin{itemize}
     \item haya exactamente una persona entre $A$ y $B$?
+    
+    \sol Si fijamos a $A$, hay 3 posiciones puede ser acomodada y el lugar de $B$ es el $i+2$. Y las
+    otras personas $C,D,E$ pueden ser acomodadas en $3!$ maneras distintas. Análogamente cuando
+    primero sea $B$ y luego $A$ (razón por la cual se multiplica por 2). Como hay $5!$ posibles
+    acomodos. Ergo la probabilidad de que haya exactamente una persona entre $A$ y $B$
+    es $\frac{2 \cdot 3 \cdot 3!}{5!} = \frac{3}{10}$.
+
     \item hayan exactamente dos personas entre $A$ y $B$?
+    
+    \sol Análogo al inciso anterior, hay 2 posiciónes para seleccionar a $A$ (sin perdida de
+    generalidad) y $C,D,E$ pueden ser acomodadas en $3!$ maneras distintas. Por tanto hay 
+    $2 \cdot 2 \cdot 3!$ acomodos posibles de la maneras que se nos pide. Como hay $5!$ posibles
+    acomodos, ergo la probabiliad de que hayan exactamente dos personas entre $A$ y $B$ es
+    $\frac{2 \cdot 2 \cdot 3!}{5!}=\frac{1}{5}$.
+
     \item hayan exactamente tres personas entre $A$ y $B$?
+    
+    \sol Con la misma idea de los incisos anteriores, entonces se tiene que es
+    $\frac{2 \cdot 1 \cdot 3!}{5!}=\frac{1}{10}$.
 \end{itemize}
 
-\item Michelle juega al Blackjack en un casino. El dealer le reparte 2 cartas de la baraja.
+\item Una mujer tiene n llaves de as cuales solo una abre la puerta de su casa.
+\begin{itemize}
+\item Si ella elige las llaves al azar y va descartando una a una las que no funcionan.¿Cuál sera la probabilidad de que ella abra la puerta en el k-enesimo intento?
+\sol
+La probabilidad es 1/n.
+\item Obten la probabilidad anterior si ella no descarta ninguna llave al intentar abrir la puerta
+\sol
+$(n-1)^k-1/n^k$
+\end{itemize}
+
+\item Michelle juega al Blackjack en un casino. El ``dealer'' le reparte 2 cartas de la baraja.
 ¿Cuál es la probabilidad de que ella gane en el primer intento?. Esto es que ella haya
-recibido un $As$ y algun 10's, J, Q, K de cualquier palo?
+recibido un A's y algún 10's, J, Q, K de cualquier palo?
+
+\sol El número de escoger un A's es $\binom{4}{1}$, y el número de escoger un 10's, J, Q, K de
+cualquier palo $\binom{16}{1}$ (esto es porque hay 4 de cada uno, que son espadas, corazones, rombos
+y tréboles). Por otro lado hay $\binom{52}{2}$ formas de tomar dos cartas de la baraja. Ergo la
+probabiliad es:
+\[
+    \frac{\binom{4}{1} \cdot \binom{16}{1}}{\binom{52}{2}} \approx 0.04826
+\]
 
 \item Para cualquier sucesión de eventos $E_1, E_2, \ldots$ prueba que es posible definir una
 nueva sucesión de eventos $F_1, F_2, \ldots$ ``disjunto'' (Esto es que $F_iF_j =\emptyset$
 si $i \not=$ j) tal que:
-nn
 \[
     \bigcup_{i=1}^{n} F_i = \bigcup_{i=1}^{n} E_i \quad \forall n \in \N
 \]
+\sol \begin{proof}
+    Se construirá $F$ progresivamente, la idea intuitiva será construir a $F_i$
+    como una unión disjunta, \textit{exempli gratia}, con $n=1$ $F_1 = E_1$,
+    con $n=2$ el evento $E_1 \cup E_2$ puede ser particionado en eventos $E_1$ y $E_1^1 \cap E_2$,
+    y $F_2 = E_2 \cap E_1^c = E_2 \setminus E_1$. Así viendo ese patrón, generalizándolo queda como:
+    \begin{align*}
+        F_1 &= E_1\\
+        F_2 &= E_2 \setminus E_1\\
+        F_3 &= E_3 \setminus (E_1 \cup E_2)\\
+        &\quad\vdots\\
+        F_n &= E_n \setminus (\bigcup_{j=1}^{n-1} E_j)
+    \end{align*}
+\end{proof}
 
 \item Sean $P_1$ y $P_2$ dos funciones de probabilidad definidas en $\Omega$. Si Definimos una
 nueva función $P$ dada por:
@@ -228,14 +383,19 @@ nueva función $P$ dada por:
     P(A) = \frac{P_1(A)+P_2(A)}{2} \quad \text{si} \quad A \in \Omega
 \]
 Demuestra que $P$ es una función de probabilidad sobre $\Omega$.
+\begin{proof}
+    TODO
+\end{proof}
 
 \item Sea $P$ una función de probabilidad en $\Omega= \{ A,B \}$ , tal que: $P(A)=p$ y
 $P(B)=1-p$ donde $0 \leq p \leq1$.
-Definimos $\Q$ otra función en $\Omega$:
+Definimos $\mathds{Q}$ otra función en $\Omega$:
 \[
-    \Q(\omega) = [P(\omega)]^2 \quad \text{si} \quad \omega \in \Omega
+    \mathds{Q}(\omega) = [P(\omega)]^2 \quad \text{si} \quad \omega \in \Omega
 \]
-¿Para qué valores de $p$ la función $\Q$ es una probabilidad?
+¿Para qué valores de $p$ la función $\mathds{Q}$ es una probabilidad?
+
+\sol TODO
 
 \item Sean $P_1, P_2, \ldots, P_k$ funciones de probabilidad en $\Omega$. Sean
 $a_1, a_2, \ldots, a_k$ una sucesión de números. ¿Qué condiciones deben de satisfacer las
@@ -252,14 +412,100 @@ La probabilidad de que exactamente dos de estos eventos ocurra es:
 
 \textit{Hint}: Usa la Desigualdad de Boole
 
+\sol \begin{proof}
+    Recordando la desigualdad de Boole que es:
+    \[
+        P(\bigcup_{i=1}^{\infty} A_i) \leq \sum_{i=1}^{\infty} P(A_i)
+    \]
+\begin{align*}
+    P(\bigcap_{i=0}^{\infty} A_i)
+        &= 1 - (P(\bigcap_{i=1}^{\infty} A_i)^c) && \text{(Def. complemento)}\\
+        &= 1 - P(\bigcup_{i=1}^{\infty} A_i^c) && \text{(De Morgan)}\\
+        &\geq 1 - \sum_{i=1}^{\infty} P(A_i^c) && \text{(Desigualdad de Boole)}\\
+        &\geq 1 - \sum_{i=1}^{\infty} (1 - P(A_i)) && \text{(Def. complemento)}\\
+        &\geq 1 - \sum_{i=1}^{\infty} (1 - 1) && \text{(Por hipótesis)}\\
+        &\geq 1 - \sum_{i=1}^{\infty} 0 && \text{(Aritmética)}\\
+        &= 1
+\end{align*}
+\end{proof}
+
 \item Sean $E,F \in S$ dos eventos. Decimos que: $E \sim $F si $P(A \triangle B) = 0$.
 Prueba que ($\sim$) es de equivalencia.
 
 \item Prueba el principio de inclusión-exclusión.
 \[
     P(\bigcup_{i=1}^{n} A_i) = \sum_{i=1}^{n} P(A_i) - \sum_{1 \leq i < j \leq n } P(A_i \cap A_j)
-    + \ldots + (-1)^{n+1} P(A_1 \cap \ldots \cap A_n)
+    + \ldots + (-1)^{n+1} P(A_1 \cap \ldots \cap A_n) \tag{$\heartsuit$}
 \]
+
+\textit{Hint: Ver libro [DeGroot]-pp 48}
+
+\sol (Por inducción)
+\begin{proof}
+\underline{Caso base:}
+\begin{itemize}
+    \item Para $n=1$. Trivial.
+    \item Para $n=2$.
+    
+    Para esta prueba se utilizara el teorema que dice lo siguiente: Para cualesquiera dos eventos
+    $A$ y $B$.
+    \[
+        P(A \cup B) = P(A) + P(B) - P(A \cup B) \tag{*}
+    \]
+    \begin{proof}
+        \textbf{Partición de un conjunto:} Para cualesquiera dos conjuntos $A$ y $B$, $A \cap B$
+        y $A \cap B^c$ son conjuntos disjuntos y $A = (A \cap B) \cup (A \cap B^c)$. En adición,
+        $B$ y $A \cap B^c$ son disjuntos y $A \cup B = B \cup (A \cap B^c)$.
+
+
+        Sabiendo eso, se tiene:
+        $$A \cup B = B \cup (A \cap B^c)$$
+
+        Como los dos eventos de la derecha son dusjuntos, se tiene que:
+        \begin{align*}
+            P(A \cup B) &=  P(B) - P(A \cap B^c) \tag{1}\\
+                &= P(B) - P(A) - P(A \cap B) \tag{2}
+        \end{align*}
+        Pero en $(1)$ se sustiyuye $P(A \cap B^c)$ por $P(A) - P(A \cap B)$ en $(2)$porque hay un
+        teorema que dice que sean dos eventos $A$ y $B$ se cumple que:
+        $$P(A \cap B^c) = P(A) - P(A \cap B)$$
+    \end{proof}
+    Teniendo la igualdad del teorema previo demostrado, se tiene que 
+    $P(A \cup B) = P(A) + P(B) - P(A \cup B)$.
+\end{itemize}
+
+\underline{Hipótesis de inducción:} Existe $m$ tal que es verdadero para toda $n \leq m$.
+
+\underline{Paso inductivo:} Para $n=m+1$.
+
+Sean $A_1, \ldots, A_{m+1}$ eventos. Definimos $A = \bigcup_{i=1}^{m} A_i$ y $B = A_{m+1}$ y usando
+el teorema previo $(*)$, podemos decir que:
+\begin{equation}
+    P(\bigcup_{i=1}^{n} A_i) = P(A \cup B) = P(A) + P(B) - P(A \cup B) \tag{3}
+\end{equation}
+
+Se ha asumido que $P(A)$ es igual a $(\heartsuit)$ con $n=m$. Se necesita mostrar que cuando sumamos
+$P(A)$ a $P(B) - P(A \cap B)$ se obtiene $(\heartsuit)$ con $n=m+1$. La diferencia entre
+$(\heartsuit)$ con $n=m+1$ y $P(A)$ son todos los términos en que cada uno de los índices 
+$(i,j,k,\ldots)$ son iguales a $m+1$. Esos términos son los siguientes
+\begin{equation}
+    P(A_{m+1}) - \sum_{i=1}^{m} P(A_i \cap A_{m+1}) + \sum_{i < j} P(A_i \cap A_j \cap A_{m+1}) +
+    \ldots + (-1)^{m+2} P(A_1 \cap A_2 \cap \cdots \cap A_m \cap A_{m+1}) \tag{4}
+\end{equation}
+
+El primer término en $(4)$ es $P(B) = P(A_{m+1})$. Todo lo que queda es mostrar que $-P(A \cup B)$
+es igual a todos, pero el primer término en $(4)$.
+
+Usando la generalización de la propiedad distributiva, para escribir que:
+\[
+    A \cap B = (\bigcup_{i=1}^m A_i) \cap A_{m+1} = \bigcup_{i=1}^{m} (A_i \cap A_{m+1}) \tag{5}
+\]
+
+La unión en $(5)$ contiene $m$ eventos, y por tanto podemos aplicar $(\heartsuit)$ con $n=m$ y cada
+$A_i$ reemplazada por $A_i \cap A_{m+1}$. El resultado es que $-P(A \cap B)$ es igual a todos,
+excepto el primer término en $(4)$.
+\end{proof}
+
 
 \item Leer y desarrollar el problema ``(6a)- \textbf{Probabilidad y una Paradoja''
 [Ross-8th. Ed]- pp 46-48}
