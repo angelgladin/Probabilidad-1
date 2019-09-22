@@ -1,0 +1,342 @@
+%%%
+ %
+ % Copyright (C) 2019 Ángel Iván Gladín García
+ %
+ % This program is free software: you can redistribute it and/or modify
+ % it under the terms of the GNU General Public License as published by
+ % the Free Software Foundation, either version 3 of the License, or
+ % (at your option) any later version.
+ %
+ % This program is distributed in the hope that it will be useful,
+ % but WITHOUT ANY WARRANTY; without even the implied warranty of
+ % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ % GNU General Public License for more details.
+ %
+ % You should have received a copy of the GNU General Public License
+ % along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,letterpaper]{report}
+\usepackage[margin=.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{float}
+
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{commath}
+
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+\usepackage{longtable}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\usepackage{import}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Pro}{\mathds{P}}
+\newcommand{\Oh}{\mathcal{O}} %% Notacion "O"
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\ord}{\text{ord}}
+\newcommand{\sol}{\textbf{\underline{Solución}: }} %% Solucion
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{
+        Universidad Nacional Autónoma de México\\
+        Facultad de Ciencias\\
+        Probabilidad I\\
+    \vspace{1cm}
+    \large
+        \textbf{Tarea-Examen}\\
+        \textbf{Probabilidad Condicional e Independencia de Eventoes}
+}
+\author{
+    Ángel Iván Gladín García\\
+    No. cuenta: 313112470\\
+    \texttt{angelgladin@ciencias.unam.mx}
+}
+\date{24 de Septiembre 2019}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Teorema}
+\newtheorem{example}{Ejemplo}
+\newtheorem{corollary}{Corolario}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definicion}
+\newtheorem{prop}{Proposicion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}
+
+%%%%%%%%%%%%%%% (1)
+\item Prueba los siguientes resultados:
+\begin{itemize}
+    \item Sean $E, F \in S$ eventos mutuamente excluyentes entonces:
+    \[
+        \Pro(E|E \cup F) = \frac{\Pro(E)}{\Pro(E) + \Pro(F)}
+    \]
+    \sol \begin{proof}
+        
+    \end{proof}
+    
+    \item Sea $\{ E_i \}_{i=0}^\infty \subseteq S$ sucesión de eventos mutuamente excluyentes
+    entonces:
+    \[
+        \Pro(E_j | \cup_{i=1}^{\infty} E_i) = \frac{\Pro(E_j)}
+            {\sum_{i=1}^{\infty} \Pro(E_i)}
+    \]
+    \sol \begin{proof}
+        
+    \end{proof}
+\end{itemize}
+
+%%%%%%%%%%%%%%% (2)
+\item Sean $E_1, E_2, \ldots , E_n \in S$ eventos independientes. Prueba que:
+\[
+    \Pro(E_1 \cup E_2 \cup \ldots \cup E_n) = 1 - \prod_{i=1}^{\infty} [1 - \Pro(E_i)]
+\]
+\sol \begin{proof}
+    
+\end{proof}
+
+%%%%%%%%%%%%%%% (3)
+\item Una serie Experimentos Aleatorios Independientes cuyos posibles resultados pueden ser
+clasificados como \emph{Exitos} ó \emph{Fracasos}. Donde ocurre un éxito con probabilidad $p$ y un
+fracaso con probabilidad $1-p$ en cada ensayo son llamados \emph{Ensayos de Bernoulli}
+$p \in [0, 1]$. Si $P_n$ denota la probabilidad de que si se realizan $n$ ensayos de bernoulli
+ocurran un número par de éxitos (0 será considerado como un número par). Prueba que:
+\[
+    P_n = p(1 - P_{n-1})+(1-p)P_{n-1} \quad \text{si } n \geq 1
+\]
+Usa esta fórmula para demostrar (por inducción) que:
+\[
+    P_n = \frac{1+ (1-2p)^n}{2}
+\]
+\sol \begin{proof}
+    
+\end{proof}
+
+%%%%%%%%%%%%%%% (4)
+\item Imagina que tenemos una sucesión $\{ a_i \}_{i=1}^{\infty} \subset \R$ tal que
+$0 \leq a_i \leq 1$ para toda $i \geq 1$.
+
+Demuestra lo siguiente:
+
+\[
+    \sum_{i=1}^{\infty} a_i (\prod_{j=1}^{i-1} (i - a_i)) +
+        \prod_{i=1}^{\infty} (1 - a_i) = 1
+\]
+
+\textit{Hint:} Supón que se realizan una infinidad de ``Volados''. Sea $a_i$ la probabilidad de que
+en el i-ésimo lanzamiento cae por primera vez Águila.
+
+\sol \begin{proof}
+    
+\end{proof}
+
+%%%%%%%%%%%%%%% (5)
+\item Valería tiene 2 bolsas de dulces. La primera de ellas contiene 2 paquetes de Kranky's y 3
+paquetes de Panditas. La segunda bolsa contiene 4 paquetes de Kranky's y 2 paquetes de Panditas.
+Si ella elige al azar una bolsa y elige un paquete de dulces. ¿Cuál es la probabilidad de que
+Valeria haya elegido un paquete de Panditas?.
+
+Muestra el Diagrama de Arbol asociado a este problema.
+
+\sol
+
+%%%%%%%%%%%%%%% (6)
+\item Se realizó una encuesta en la Facultad de Ciencias. Se encontró que la probabilidad de
+seleccionar una persona al azar y que esta sea fumadora es del 20\%. La probabilidad de que al
+menos la persona tenga un familiar que fume es del 30\%. Además si esta persona al menos tiene un
+familiar fumador la probabilidad de que ella misma fume se eleva hasta 35\%. Obtén la probabilidad
+de que la persona elegida sea fumadora pero que no tenga ningún familiar que fume.
+
+\sol
+
+%%%%%%%%%%%%%%% (7)
+\item De acuerdo con un estudio realizado por la Secretaría de Salud. La probabilidad de que una
+mujer de entre 50 y 59 años sea diagnosticada con Cáncer de Mama es de 2.38\%. Se sabe que si una
+mujer bajo estas condiciones se realiza una Mamografía esta prueba tiene un nivel de sensitividad
+tumoral del 85\% para mujeres de este rango de edad. Si el nivel de confianza de esta prueba es del
+95\%. Esto es la tasa de Falsos-Negativos es del 15\% y la de Falsos-Positivos es de 5\%. Si una
+mujer en este rango de edad se realiza una Mamografía y esta resulta positiva para Cáncer. ¿Cuál
+es la probabilidad de que ella realmente tenga la enfermedad?
+
+\sol
+
+%%%%%%%%%%%%%%% (8)
+\item  Un Polígrafo (Detector de Mentiras) decimos que es 90\% confiable en el siguiente sentido: Hay
+un 90\% de chances de que una persona que está diciendo la verdad pase la prueba del polígrafo y
+hay un 90\% de chances que una persona que este mintiendo falle la prueba del polígrafo.
+\begin{itemize}
+    \item En la CDMX se estima que el 5\% de las personas miente. Si una persona seleccionada al
+    azar en la ciudad realiza la prueba del polígrafo la cual dice que persona está mintiendo.
+    ¿Cuál es la probabilidad de que esta persona verdaderamente esté mintiendo?
+    
+    \sol 
+
+    \item ¿Qué tan confiable debería ser la prueba del poligrafo para que la probabilidad de que una
+    persona que verdaderamente esté mintiendo dado que la prueba del poligrafo resulto positiva sea
+    de al menos 80\%?
+    
+    \sol
+\end{itemize}
+
+%%%%%%%%%%%%%%% (9)
+\item Una persona en Los Angeles California observa que un Taxi atropella a una persona. Si en L.A.
+el 95\% de los Taxis son amarillos y el 5\% son azules. Un perito de la L.A.P.D.(Policía) cree que
+una persona que atestigua un accidente es 80\% confiable. Esto es que la persona identifica el color
+del Taxi el 80\% de las veces. ¿Cuál es la probabilidad de que el Taxi que participó en este
+accidente haya sido azul?
+
+\sol
+
+%%%%%%%%%%%%%%% (10)
+\item Imagina que un amigo tuyo tiene 3 dados. Uno de ellos es standard, el segundo de ellos solo
+tiene 5's en cada uno de sus lados y el otro tiene 5's en tres caras y 4's en las 3 caras restantes.
+Si un dado de ellos es seleccionado al azar y se lanza y cae un 5. ¿Cual es la probabilidad de que
+el dado elegido haya sido el dado standard?
+
+\sol
+
+%%%%%%%%%%%%%%% (11)
+\item Sean $A, B, C \in S$ eventos relacionados con el lanzamiento de un par de dados.
+\begin{itemize}
+    \item Si $\Pro(A|C) > \Pro(B|C)$ y $\Pro(A|C^c)>P(B|C^c)$
+    Demuestra que: $Pro(A)>Pro(B)$ ó exhibe un contra-ejemplo definiendo eventos $A, B, C$ en donde
+    dicha afirmación no se cumpla
+    
+    \item Si $\Pro(A|C) > \Pro(A|C^c)$ y $\Pro(B|C)>\Pro(B|C^c)$
+    Demuestra que: $\Pro(AB|C) > \Pro(AB|C^c)$ ó exhibe un contra-ejemplo definiendo eventos 
+    $A, B, C$ en donde dicha afirmación no se cumpla.
+
+    \textit{Hint:} Sean $A, B, C \in S$ los eventos que definen si al lanzar un par de dados ocurre
+    \begin{itemize}
+        \item $C =$ {La suma de ambos dados es igual a 10}
+        \item $A =$ {El Primer Dado cayo 6}
+        \item $B =$ {El Segundo Dado cayo 6}
+    \end{itemize}
+
+\end{itemize}
+
+%%%%%%%%%%%%%%% (12)
+\item Jenny tiene ciertos criterios para elegir a su siguiente Novio. Ella tiene $n$ pretendientes
+y compara entre si a cualquier par de chicos con los que sale y los clasifica. Ella puede decidir
+tener una ``Cita'' con algún pretendiente en cualquier instante al azar. Cuando ella conoce bien a
+algún pretendiente puede aceptar ser su novia ó bien lo rechaza (No sin antes...)
+
+Si ella acepta ser Novia de algún pretendiente ella no intentara a los pretendientes con los que
+aun no ha tenido una cita (En la vida real ... Whatsapp, Facebook, SNAPCHAT, etc. ¿Verdad?). Si ella
+ha rechazado a algún pretendiente ella nunca mas lo podría considerar como opción para ser su novio.
+La chica en el proceso de la búsqueda de su novio no elegirá a un pretendiente que comparado con los
+chicos que anteriormente ha salido considere sea "peor". El objetivo de ella es maximizar la
+probabilidad de elegir al ``mejor'' pretendiente para ser su novio. Y para ello sigue la siguiente
+estrategia:
+
+Para alguna $m$, $0 \leq m < n$ ella descarta a los primeros $m$ pretendientes. Ella acepta salir
+con ellos y después de conocerlos los descarta sin importarle cual de ellos es mejor. Entonces
+tomara como Novio, al siguiente pretendiente que considere mejor que los chicos a los que descarto.
+En términos de $n$ ¿Cual es el valor de m que maximiza la probabilidad de que la chica elija al
+mejor pretendiente ?
+
+\textit{Hint: } Sean $E_m \in S$, $\{ B_i \}_{i=1}^{n} \subseteq S$ los eventos que definen
+\begin{itemize}
+    \item $E_m =$ {Jenny elige al mejor pretendiente}
+    \item $B_i =$ {El mejor pretendiente es la i-esima cita de Jenny}
+\end{itemize}
+Por la ley de la Probabilidad Total se sigue que:
+\[
+    \Pro(E_m) = \sum_{i=1}^{\infty} \Pro(E_m | B_i) \Pro(Bi)
+        \quad \text{donde } \Pro(B_i) = \frac{1}{n}
+\]
+Es evidente que $\Pro(E_m|B_i) = 0$ si $1 \leq i \leq m$, ahora si $i > m$ el i-esimo pretendiente
+es el mejor entonces Jenny lo elegirá a el si y solo si el mejor de los anteriores esta dentro de
+los primeros $m$ pretendientes que inicialmente descarto. De modo que
+\[
+    \Pro(E_m|B_i)= \frac{m}{i-1} \quad \text{si } i>m
+\]
+Ademas utiliza el hecho que
+\[
+    \sum_{i=m+1}^{n} \frac{1}{i+1} \approx \int_{m}^{n} \frac{1}{x}dx
+\]
+Ahora obtén el valor aproximado de $m$ para el cual $\Pro(E_m)$ es máxima.
+
+%%%%%%%%%%%%%%% (13)
+\item Una mujer llamada Paulina tiene 2 pretendientes: Ernesto y Luis. Ella esta decidida a ser
+novia de alguno de ellos. Ernesto tiene una probabilidad de 0.7 de ser el elegido y Luis una de 0.3.
+Si Ernesto es novio de Paulina hay una probabilidad de 0.4 de que terminen en matrimonio y si es
+Luis, una de 0.3. Si despues de unos años hay reportes de que Paulina se caso con alguno de los
+ellos. ¿Cual es la probabilidad de que haya sido con Luis?
+
+%%%%%%%%%%%%%%% (12)
+\item Investiga y resuelve el problema de Regla de la Sucesión de Laplace.
+
+\textit{Hint:} Ver[Ross] Ejemplo 5e, Capitulo 3
+
+\sol
+
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
