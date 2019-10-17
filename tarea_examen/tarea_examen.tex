@@ -18,7 +18,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[11pt,letterpaper]{report}
-\usepackage[margin=.75in]{geometry}
+\usepackage[margin=.7in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \decimalpoint
@@ -40,6 +40,18 @@
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{mathtools}
 \usepackage{longtable}
+
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usepackage{verbatim}
+
+% Set the overall layout of the tree
+\tikzstyle{level 1}=[level distance=3.5cm, sibling distance=3.5cm]
+\tikzstyle{level 2}=[level distance=3.5cm, sibling distance=2cm]
+
+% Define styles for bags and leafs
+\tikzstyle{bag} = [text width=4em, text centered]
+\tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
 \usepackage{import}
@@ -88,6 +100,8 @@
 \newcommand{\ra}{\rightarrow}
 \newcommand{\ord}{\text{ord}}
 \newcommand{\sol}{\textbf{\underline{Solución}: }} %% Solucion
+\newcommand{\af}{\textbf{\underline{Afirmación}: }}
+\newcommand{\cej}{\textbf{\underline{Contraejemplo}: }}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -108,7 +122,7 @@
     No. cuenta: 313112470\\
     \texttt{angelgladin@ciencias.unam.mx}
 }
-\date{24 de Septiembre 2019}
+\date{27 de Septiembre 2019}
 \maketitle
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -132,7 +146,24 @@
         \Pro(E|E \cup F) = \frac{\Pro(E)}{\Pro(E) + \Pro(F)}
     \]
     \sol \begin{proof}
-        
+        Al ser $E,F$ mutuamente excluyentes, \textit{il est}, su $\Pro(E \cap F) = 0$.
+
+        Usando el hecho de que sean $A, B \in S$ si $\Pro(A) > 0$, entonces
+        \[
+            \Pro(A | B) = \frac{\Pro(AB)}{\Pro(B)} \tag{$\heartsuit$}
+        \]
+
+        Entonces:
+        \begin{align*}
+            \Pro(E | E \cup F)
+                &= \frac{\Pro(E \cap (E \cup F))}{\Pro(E \cup F)} && \text{Por ($\heartsuit$)}\\
+                &= \frac{\Pro((E \cap E) \cup (E \cap F))}{\Pro(E \cup F)} && \text{Por distributividad de conjuntos}\\
+                &= \frac{\Pro(E \cup (E \cap F))}{\Pro(E \cup F)} && \text{Por idempotencia de conjuntos}\\
+                &= \frac{\Pro(E \cup \emptyset)}{\Pro(E \cup F)} && \text{Por hipótesis de ser eventos mutuamente excluyentes}\\
+                &= \frac{\Pro(E)}{\Pro(E \cup F)} && \text{Por identidad en conjuntos}\\
+                &= \frac{\Pro(E)}{\Pro(E) + \Pro(F) - \Pro(E \cap F)} && \text{Obteniendo la unión de las probabilidades}\\
+                &= \frac{\Pro(E)}{\Pro(E) + \Pro(F)} && \text{Por hipótesis de ser eventos mutuamente excluyentes}
+        \end{align*}
     \end{proof}
     
     \item Sea $\{ E_i \}_{i=0}^\infty \subseteq S$ sucesión de eventos mutuamente excluyentes
@@ -142,17 +173,33 @@
             {\sum_{i=1}^{\infty} \Pro(E_i)}
     \]
     \sol \begin{proof}
-        
+        \begin{align*}
+            \Pro(E_j | \cup_{i=1}^{\infty} E_i)
+                &= \frac{\Pro(E_j \cap (\cup_{i=1}^{\infty} E_i))}{\Pro(\cup_{i=1}^{\infty} E_i)} && \text{Por ($\heartsuit$)}\\
+                &= \frac{\Pro(\cup_{i=1}^{\infty} (E_j \cap E_i))}{\Pro(\cup_{i=1}^{\infty} E_i)} && \text{Por distributividad de conjuntos}\\
+                &= \frac{\Pro((\cup_{i=1}^{j-1} (E_j \cap E_i)) \cup (E_j \cap E_j) \cup (\cup_{i=j+1}^{\infty} (E_j \cap E_i)))}
+                {\Pro(\cup_{i=1}^{\infty} E_i)} && \text{Separando la unión}\\
+                &= \frac{\Pro(\emptyset \cup E_j \cup \emptyset)}{\Pro(\cup_{i=1}^{\infty} E_i)} && \text{Por hipótesis}\\
+                &= \frac{\Pro(E_j)}{\Pro(\cup_{i=1}^{\infty} E_i)} && \text{Por identidad en conjuntos}\\
+                &= \frac{\Pro(E_j)}{\sum_{i=1}^{\infty} \Pro(E_i)} && \text{Por hipótesis}\\
+        \end{align*}
     \end{proof}
 \end{itemize}
 
 %%%%%%%%%%%%%%% (2)
 \item Sean $E_1, E_2, \ldots , E_n \in S$ eventos independientes. Prueba que:
 \[
-    \Pro(E_1 \cup E_2 \cup \ldots \cup E_n) = 1 - \prod_{i=1}^{\infty} [1 - \Pro(E_i)]
+    \Pro(E_1 \cup E_2 \cup \ldots \cup E_n) = 1 - \prod_{i=1}^{n} [1 - \Pro(E_i)]
 \]
 \sol \begin{proof}
-    
+    \begin{align*}
+        1 - \prod_{i=1}^{n} [1 - \Pro(E_i)]
+            &= 1 - \prod_{i=1}^{n} \Pro(E_i^c) && \text{Def. complemento}\\
+            &= 1 - \Pro(\bigcap_{i=1}^{n} E_i^c) && \text{Por hipótesis de ser eventos independientes}\\
+            &= 1 - \Pro((\bigcup_{i=1}^{n} E_i)^c) && \text{Aplicando leyes de De Morgan}\\
+            &= \Pro(\bigcup_{i=1}^{n} E_i) && \text{Def. complemento}\\
+            &= \Pro(E_1 \cup E_2 \cup \ldots \cup E_n) && \text{Notación}
+    \end{align*}
 \end{proof}
 
 %%%%%%%%%%%%%%% (3)
@@ -162,14 +209,64 @@ fracaso con probabilidad $1-p$ en cada ensayo son llamados \emph{Ensayos de Bern
 $p \in [0, 1]$. Si $P_n$ denota la probabilidad de que si se realizan $n$ ensayos de bernoulli
 ocurran un número par de éxitos (0 será considerado como un número par). Prueba que:
 \[
-    P_n = p(1 - P_{n-1})+(1-p)P_{n-1} \quad \text{si } n \geq 1
+    P_n = p(1 - P_{n-1})+(1-p)P_{n-1} \quad \text{si } n \geq 1 \tag{1}
 \]
 Usa esta fórmula para demostrar (por inducción) que:
 \[
-    P_n = \frac{1+ (1-2p)^n}{2}
+    P_n = \frac{1+ (1-2p)^n}{2} \tag{2}
 \]
 \sol \begin{proof}
+    Para demostrar $P_n = p(1 - P_{n-1})+(1-p)P_{n-1}$, lo que haremos será tener dos eventos,
+    $A, B \in S$, donde $A$ es que hubo éxito en el primer ensayo y $B$ que en lo demás $n-1$
+    ensayos se produjo un número par de éxitos.
+
+    Si denotamos al evento $A \cap B^c$ como el evento de que en el primer ensayo hubo éxito y
+    número non de éxitos en el evento $B^c$. Y el evento en $A^c \cap B$, donde $A^c$
+    no hubo éxitos y en $B^c$ hubo una cantidad par de éxitos.
+
+    Como $A$ y $B$ son ensayos independentientes,entonces se puede ver al n-ésimo ensayo como:
+    \begin{align*}
+        P_n
+            &= \Pro(A \cap B^c) + \Pro(A^c \cap B) && \text{Expresando probas de los eventos}\\
+            &= \Pro(A)\Pro(B^c) + \Pro(A^c)\Pro(B) && \text{Por ser eventos indep. y aplicando la regla de la multiplicación}\\
+            &= p(1 - P_{n-1})+(1-p)P_{n-1} && \text{Obteniendo la proba de cada evento}
+    \end{align*}
+\end{proof}
+
+\begin{proof}
+    \underline{Por inducción:}
+
+    Primero se procerá a simplicar $(1)$:
+    \[
+        P_n = p(1 - P_{n-1})+(1-p)P_{n-1} = p - pP_{n-1} + P_{n-1} - pP_{n-1}
+            = p + (1 - 2p)P_{n-1} \tag{3}
+    \]
+    Teniendo $(3)$, ahorá se procederá a hacer inducción sobre $P_n$. \textbf{Daremos por hecho que
+    $P_0 = 1$ para demostrarlo}.
     
+    \underline{Caso base:} $n=1$.
+    \begin{align*}
+        P_1
+            &= p + (1 - 2p)P_0\\
+            &= p + 1 - 2p\\
+            &= 1 - p
+    \end{align*}
+
+    \underline{Hipótesis de inducción:} Es válida para $n$.
+    
+    \underline{Paso inductivo:} $n = n+1$.
+    \begin{align*}
+        P_{n+1}
+            &= p + (1 - 2p)P_n && \text{Usando $(3)$}\\
+            &= p + (1 - 2p)(\frac{1+ (1-2p)^n}{2}) && \text{Sustituyendo $P_n$ por $(2)$}\\
+            &= p + (\frac{1+ (1-2p)^n}{2}) - (\frac{2p+ 2p(1-2p)^n}{2}) && \text{Aritmética}\\
+            &= p + (\frac{1+ (1-2p)^n - 2p - 2p(1-2p)^n}{2}) && \text{Aritmética}\\
+            &= \frac{2p +1+ (1-2p)^n - 2p - 2p(1-2p)^n}{2} && \text{Aritmética}\\
+            &= \frac{2p +1+ (1-2p)^n - 2p - 2p(1-2p)^n}{2} && \text{Aritmética}\\
+            &= \frac{1 + (1 - 2p)^n(1-2p)}{2} && \text{Aritmética}\\
+            &= \frac{1 + (1 - 2p)^{n+1}}{2} && \text{Leyes exponentes}
+    \end{align*}
+
 \end{proof}
 
 %%%%%%%%%%%%%%% (4)
@@ -179,7 +276,7 @@ $0 \leq a_i \leq 1$ para toda $i \geq 1$.
 Demuestra lo siguiente:
 
 \[
-    \sum_{i=1}^{\infty} a_i (\prod_{j=1}^{i-1} (i - a_i)) +
+    \sum_{i=1}^{\infty} a_i (\prod_{j=1}^{i-1} (1 - a_j)) +
         \prod_{i=1}^{\infty} (1 - a_i) = 1
 \]
 
@@ -187,7 +284,35 @@ Demuestra lo siguiente:
 en el i-ésimo lanzamiento cae por primera vez Águila.
 
 \sol \begin{proof}
-    
+    Sea $a_i$ la la probabilidad de que cayó Águila en el i-ésimo lanzamiento y su complemento como:
+    \begin{itemize}
+        \item $\Pro(\text{Cayó águila en el i-ésimo lanzamiento}) = a_i$
+        \item $\Pro(\text{No águila en el i-ésimo lanzamiento}) = (1 - a_i)$
+    \end{itemize}
+    Al ser eventos independentientes, podemos expresar a $a_i$ como el producto de ésa probabilidad
+    por las anteriores que no cayó águila:
+    \begin{align*}
+        &\text{Cayó águila en 1er volado: } & a_1\\
+        &\text{Cayó águila en 2do volado: } & (1 - a_1)a_2\\
+        &\text{Cayó águila en 3er volado: } & (1 - a_1)(1 - a_2)a_3\\
+        &\qquad \vdots\\
+        &\text{Cayó águila en i-ésimo volado: } & (1 - a_1) \cdots (1 - a_{i-1})a_i\\
+    \end{align*}
+    Teniendo así de forma general:
+    \[
+        \prod_{j=1}^{i-1} (1 - a_j) \cdot a_i \tag{1}
+    \]
+    Y para obtener la probabilidad haya salido águila, siendo $A \in S$ ése evento, se expresa como:
+    \[
+        \Pro(A) = \sum_{i=1}^{\infty} a_i (\prod_{j=1}^{i-1} (1 - a_j))
+    \]
+    Obteniendo la probabilidad de que nunca haya salido un águila lo podemos denotar como $A^c$:
+    \[
+        \Pro(A^c) = \prod_{i=1}^{\infty} (1 - a_i) \tag{2}
+    \]
+    Y ahora podemos obtener la probabilidad total con $(1)$ y $(2)$ como:
+    $$ \Pro(A) + \Pro(A^c) = 1 $$
+    $$ \sum_{i=1}^{\infty} a_i (\prod_{j=1}^{i-1} (1 - a_j)) + \prod_{i=1}^{\infty} (1 - a_i) = 1 $$
 \end{proof}
 
 %%%%%%%%%%%%%%% (5)
@@ -198,27 +323,103 @@ Valeria haya elegido un paquete de Panditas?.
 
 Muestra el Diagrama de Arbol asociado a este problema.
 
-\sol
+\sol 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[grow=right, sloped]
+    \node[bag] {$\cdot$}
+        child {
+            node[bag] {Bolsa 2}        
+                child {
+                    node[end, label=right:
+                        {Panditas}] {}
+                    edge from parent
+                    node[above]  {$\frac{2}{6}$}
+                }
+                child {
+                    node[end, label=right:
+                        {Kranky's}] {}
+                    edge from parent
+                    node[above]  {$\frac{4}{6}$}
+                }
+                edge from parent 
+                node[above] {$\frac{1}{2}$}
+        }
+        child {
+            node[bag] {Bolsa 1}        
+            child {
+                    node[end, label=right:
+                        {Panditas}] {}
+                    edge from parent
+                    node[above]  {$\frac{3}{5}$}
+                }
+                child {
+                    node[end, label=right:
+                        {Kranky's}] {}
+                    edge from parent
+                    node[above]  {$\frac{2}{5}$}
+                }
+            edge from parent         
+                node[above] {$\frac{1}{2}$}
+        };
+\end{tikzpicture}
+\caption{Diagrama de árbol}
+\end{figure}
+
+Para obtener la probabilidad de \emph{que Valeria haya elegido un paquete de Panditas} se hará uso
+de la probabilidad total.
+
+Lo primero que hay que hacer es definir los eventos, teniendo así:
+\begin{itemize}
+    \item $\Pro(B_1) := $ \{La probabilidad de que haya tomado un dulce de la 1era bolsa\}
+    \item $\Pro(B_2) := $ \{La probabilidad de que haya tomado un dulce de la 2da bolsa\}
+    \item $\Pro(P) := $ \{La probabilidad de que la han salido Panditas\}
+    \item $\Pro(K) := $ \{La probabilidad de que la han salido Kranky's\}
+\end{itemize}
+
+Teniendo así que la probabilidad de que le haya salido panditas es:
+\begin{align*}
+    \Pro(P)
+        &= \Pro(P | B_1) \Pro(B_1) + \Pro(P | B_2) \Pro(B_2)\\
+        &= \frac{3}{5} \cdot \frac{1}{2} + \frac{2}{6} \cdot \frac{1}{2}\\
+        &\approx 0.4666
+\end{align*}
 
 %%%%%%%%%%%%%%% (6)
 \item Se realizó una encuesta en la Facultad de Ciencias. Se encontró que la probabilidad de
-seleccionar una persona al azar y que esta sea fumadora es del 20\%. La probabilidad de que al
+seleccionar una persona al azar y que ésta sea fumadora es del 20\%. La probabilidad de que al
 menos la persona tenga un familiar que fume es del 30\%. Además si esta persona al menos tiene un
 familiar fumador la probabilidad de que ella misma fume se eleva hasta 35\%. Obtén la probabilidad
 de que la persona elegida sea fumadora pero que no tenga ningún familiar que fume.
 
-\sol
+\sol Sean los eventos $S, F \in \Omega$, tales que, $S := $ \{ Es fumador \} y
+$F := $ \{ Tiene un familiar que fuma \}. Por hipótesis se tiene que $\Pro(S) = 0.2$,
+$\Pro(F) = 0.3$ y $\Pro(S | F) = 0.35$.
+
+Entonces lo que nos pide el problema \emph{la probabilidad de que la persona elegida sea
+fumadora pero que no tenga ningún familiar que fume} que se traduce como $\Pro(S | F^c)$.
+
+Por el teorema de Bayes se tienes que:
+\begin{align*}
+    \Pro(S | F^c)
+        &= \frac{\Pro(F^c | S) \Pro(S)}{\Pro(F^c)} && \text{Definición}\\
+        &= \frac{(1 - \Pro(F | S)) \Pro(S)}{(1 - \Pro(F))} && \text{Complemento}\\
+        &= \frac{0.4750 \cdot 0.2}{0.7} && \text{Sustituyendo}\\
+        &\approx 0.1357
+\end{align*}
+
+Para obtener $\Pro(F | S)$, se hizo lo siguiente:
+\begin{align*}
+    \Pro(F | S)
+        &= \frac{\Pro(S | F)\Pro(F)}{\Pro(S)} && \text{Definición}\\
+        &= \frac{0.35 \cdot 0.3}{0.2} && \text{Sustituyendo}\\
+        &\approx 0.5249
+\end{align*}
+
+Por tanto, $\Pro(S | F^c) \approx 0.1357$.
 
 %%%%%%%%%%%%%%% (7)
-\item De acuerdo con un estudio realizado por la Secretaría de Salud. La probabilidad de que una
-mujer de entre 50 y 59 años sea diagnosticada con Cáncer de Mama es de 2.38\%. Se sabe que si una
-mujer bajo estas condiciones se realiza una Mamografía esta prueba tiene un nivel de sensitividad
-tumoral del 85\% para mujeres de este rango de edad. Si el nivel de confianza de esta prueba es del
-95\%. Esto es la tasa de Falsos-Negativos es del 15\% y la de Falsos-Positivos es de 5\%. Si una
-mujer en este rango de edad se realiza una Mamografía y esta resulta positiva para Cáncer. ¿Cuál
-es la probabilidad de que ella realmente tenga la enfermedad?
-
-\sol
+\item No lo haré.
 
 %%%%%%%%%%%%%%% (8)
 \item  Un Polígrafo (Detector de Mentiras) decimos que es 90\% confiable en el siguiente sentido: Hay
@@ -229,13 +430,70 @@ hay un 90\% de chances que una persona que este mintiendo falle la prueba del po
     azar en la ciudad realiza la prueba del polígrafo la cual dice que persona está mintiendo.
     ¿Cuál es la probabilidad de que esta persona verdaderamente esté mintiendo?
     
-    \sol 
+    \sol Sean $V, F, A \subset S$ eventos tales que, $V :=$ \{Sea verdad\}, $F :=$ \{Sea mentira\} y $A:=$
+    \{Esté diciendo la verdad\}. Y los otros eventos como:
+    \begin{itemize}
+        \item $\Pro(A | V) = 0.9$. La probabilidad de que esté diciendo la verdad y pase la prueba.
+        \item $\Pro(A^c | F) = 0.9$. La probabilidad de que esté mintiendo y falle la prueba.
+    \end{itemize}
+    Ahora lo que debemos de obtener es la probabilidad de que \emph{la persona verdaderamente esté
+    mintiendo}, ósea, $\Pro(F | A^c)$ desarrollándola queda como:
+    \[
+        \Pro(F | A^c) = \frac{\Pro(A^c | F) \cdot \Pro(F)}{\Pro(A^c)} \tag{1}
+    \]
+
+    Sabemos que $\Pro(F) = 0.05$ por hipótesis y su complemento, que es que sea verdad es
+    $\Pro(V)=0.95$.
+
+    Para obtener $\Pro(A^c | F)$, se hará uso de la probabilidad total, quedando así.
+    \[
+        \Pro(A^c | F) = \Pro(A^c | F) \cdot \Pro(F) + \Pro(A^c | V) \cdot \Pro(V) \tag{2}
+    \]
+    La única probabilidad que debemos calcular por ahora es $\Pro(A^c | V)$.
+
+    \af Sean $A,B \subset S$ eventos, entonces $\Pro(A | B) = 1 - \Pro(A^c | B)$.
+    \begin{proof}
+        Expresando a $A$ en términos de una unión disjunta, tenemos:
+        \begin{align*}
+            A &= A \cap \Omega && \text{Identidad}\\
+                &= A \cap (B \cup B^C) && \text{Complemento}\\
+                &= (A \cap B) \cup (A \cap B^c) && \text{Distributividad}\\
+        \end{align*}
+        Sacando la probabilidad se sigue que:
+        \begin{align*}
+            &\Pro(A) = \Pro(AB) + \Pro(AB^c) && \text{Suma de dos probabilidades disjuntas}\\
+            1 &= \frac{\Pro(AB)}{\Pro(A)} + \frac{\Pro(AB^c)}{\Pro(A)} && \text{Definición}\\
+                &= \Pro(A | B) + \Pro(A^c \ B) && \text{Definición}
+        \end{align*}
+        Ergo $\Pro(A | B) = 1 - \Pro(A^c | B)$.
+    \end{proof}
+
+    Regresadon al problema, lo que queremos obtener es $\Pro(A^c | V)$ que es,
+    $\Pro(A^c | V) = 1 - \Pro(A | V) = 1 - 0.9 = 0.1$.
+
+    Sustituyendo en $(2)$ tenemos que:
+    \begin{align*}
+        \Pro(A^c | F)
+            &= \Pro(A^c | F) \cdot \Pro(F) + \Pro(A^c | V) \cdot \Pro(V)\\
+            &= 0.9 \cdot 0.05 + 0.1 \cdot 0.95\\
+            &= 0.14
+    \end{align*}
+
+    Sustituyendo en $(1)$ usando $(2)$, se tiene que:
+    \begin{align*}
+        \Pro(F | A^c)
+            &= \frac{\Pro(A^c | F) \cdot \Pro(F)}{\Pro(A^c)}\\
+            &= \frac{0.9 \cdot 0.05}{0.14}\\
+            &\approx 0.3214
+    \end{align*}
+    
+    Por tanto la probabilidad de que esta persona verdaderamente esté mintiendo es $\approx$ 0.3214.
 
     \item ¿Qué tan confiable debería ser la prueba del poligrafo para que la probabilidad de que una
     persona que verdaderamente esté mintiendo dado que la prueba del poligrafo resulto positiva sea
     de al menos 80\%?
     
-    \sol
+    \sol 0.987
 \end{itemize}
 
 %%%%%%%%%%%%%%% (9)
@@ -245,7 +503,29 @@ una persona que atestigua un accidente es 80\% confiable. Esto es que la persona
 del Taxi el 80\% de las veces. ¿Cuál es la probabilidad de que el Taxi que participó en este
 accidente haya sido azul?
 
-\sol
+\sol Sean los eventos $A :=$ \{ El taxi es azul \} y $B :=$ \{ El taxi es identificado como azul \}.
+Donde por hipótesis $\Pro(A^c) = .95$ (la probabilidad de que el taxi es amarillo), $\Pro(A) = .5$
+y dice que la persona identifica el color del taxi el 80\% de las veces, que es:
+\begin{itemize}
+    \item $\Pro(B | A) = 0.8$, que es que el testigo haya identificado al taxi azul dado que es azul.
+    \item $\Pro(B^c | A^c) = 0.8$, que es que el testigo haya identificado al taxi amarillo dado que es amarillo.
+\end{itemize}
+Una vez teniendo los eventos definidos, lo que se buscar es \emph{la probabilidad de que el Taxi
+que participó en este accidente haya sido azul}, que es $\Pro(A | B)$.
+
+Para ellos se hará uso del Teorema de Bayes. Pero necesitamos obtener $\Pro(B)$ para hacer uso de ella, y la forma de
+obtenerla es obtener la probabilidad total.
+\[
+    \Pro(B) = \Pro(B | A) \Pro(A) + \Pro(B | A^c) \Pro(A^c)
+\]
+Entonces:
+\begin{align*}
+    \Pro(A | B)
+        &= \frac{\Pro(B|A)\Pro(A)}{\Pro(B)} && \text{Teorema de Bayes}\\
+        &= \frac{\Pro(B|A)\Pro(A)}{\Pro(B | A) \Pro(A) + \Pro(B | A^c) \Pro(A^c)} && \text{Obteniendo la probabilidad total de $B$}\\
+        &= \frac{0.8 \cdot 0.05}{0.8 \cdot 0.05 + 0.2 \cdot 0.95} && \text{Sustituyendo}\\
+        &\approx 0.1739
+\end{align*}
 
 %%%%%%%%%%%%%%% (10)
 \item Imagina que un amigo tuyo tiene 3 dados. Uno de ellos es standard, el segundo de ellos solo
@@ -254,82 +534,157 @@ Si un dado de ellos es seleccionado al azar y se lanza y cae un 5. ¿Cual es la 
 el dado elegido haya sido el dado standard?
 
 \sol
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[grow=right, sloped]
+        \node[bag] {$\cdot$}
+            child {
+                node[bag] {Dado 3}        
+                    child {
+                        node[end, label=right:
+                            {No sale un 5}] {}
+                        edge from parent
+                        node[above]  {$\frac{1}{2}$}
+                    }
+                    child {
+                        node[end, label=right:
+                            {Sale un 5}] {}
+                        edge from parent
+                        node[above]  {$\frac{1}{2}$}
+                    }
+                    edge from parent 
+                    node[above] {$\frac{1}{3}$}
+            }
+            child {
+                node[bag] {Dado 2}        
+                    child {
+                        node[end, label=right:
+                            {No sale un 5}] {}
+                        edge from parent
+                        node[above]  {$0$}
+                    }
+                    child {
+                        node[end, label=right:
+                            {Sale un 5}] {}
+                        edge from parent
+                        node[above]  {$1$}
+                    }
+                    edge from parent 
+                    node[above] {$\frac{1}{3}$}
+            }
+            child {
+                node[bag] {Dado 1}        
+                child {
+                        node[end, label=right:
+                            {No sale un 5}] {}
+                        edge from parent
+                        node[above]  {$\frac{5}{6}$}
+                    }
+                    child {
+                        node[end, label=right:
+                            {Sale un 5}] {}
+                        edge from parent
+                        node[above]  {$\frac{1}{6}$}
+                    }
+                edge from parent         
+                    node[above] {$\frac{1}{3}$}
+            };
+    \end{tikzpicture}
+    \caption{Diagrama de árbol}
+\end{figure}
+
+Sean los eventos, $F, D_1, D_2, D_3 \in \Omega$, tales que:
+\begin{itemize}
+    \item $F := $ \{ Se lanza un dado al azar y cae 5 \}
+    \item $D_1 := $ \{ Se tiró el dado 1 \}
+    \item $D_2 := $ \{ Se tiró el dado 2 \}
+    \item $D_3 := $ \{ Se tiró el dado 3 \}
+\end{itemize}
+
+Obteniendo $\Pro(F)$ con probabilidad total, que significa que un dado seleccionado al azar cayó 5:
+\[
+    \Pro(F)
+        = \Pro(F | D_1) \Pro(D_1) + \Pro(F | D_2) \Pro(D_2) + \Pro(F | D_3) \Pro(D_3)
+        = \frac{1}{6} \cdot \frac{1}{3} + 1 \cdot \frac{1}{3} + \frac{1}{2} \cdot \frac{1}{3}
+        \approx 0.5555
+\]
+
+Lo que nos pide el problema es calcular $\Pro(F | D_1)$:
+
+\begin{align*}
+    \Pro(F | D_1)
+        &= \frac{\Pro(D_1 | F) \Pro(F)}{\Pro(D_1)}\\
+        &= \frac{.06 \cdot 0.5555}{\frac{1}{3}}\\
+        &= \frac{1}{10}
+\end{align*}
 
 %%%%%%%%%%%%%%% (11)
 \item Sean $A, B, C \in S$ eventos relacionados con el lanzamiento de un par de dados.
 \begin{itemize}
-    \item Si $\Pro(A|C) > \Pro(B|C)$ y $\Pro(A|C^c)>P(B|C^c)$
-    Demuestra que: $Pro(A)>Pro(B)$ ó exhibe un contra-ejemplo definiendo eventos $A, B, C$ en donde
-    dicha afirmación no se cumpla
-    
-    \item Si $\Pro(A|C) > \Pro(A|C^c)$ y $\Pro(B|C)>\Pro(B|C^c)$
-    Demuestra que: $\Pro(AB|C) > \Pro(AB|C^c)$ ó exhibe un contra-ejemplo definiendo eventos 
-    $A, B, C$ en donde dicha afirmación no se cumpla.
+    \item Si $\Pro(A|C) > \Pro(B|C)$ y $\Pro(A|C^c)>\Pro(B|C^c)$.
+    Demuestra que $\Pro(A)>\Pro(B)$ ó exhibe un contraejemplo definiendo eventos $A, B, C$ en donde
+    dicha afirmación no se cumpla.
 
-    \textit{Hint:} Sean $A, B, C \in S$ los eventos que definen si al lanzar un par de dados ocurre
+    \sol \begin{proof} $\Pro(A)>\Pro(B)$
+
+        Por hipótesis tenemos que:
+        \[  \Pro(A|C)   > \Pro(B|C)   \tag{1}   \]
+        \[  \Pro(A|C^c) > \Pro(B|C^c) \tag{2}   \]
+        Suponiendo que $\Pro(C)>0$, entonces multiplicando las igualdades $(1)$ y $(2)$
+        por $\Pro(C)$ y $\Pro(C^c)$ respectivamente, se obtiene:
+        \[  \Pro(A|C) \cdot \Pro(C)     > \Pro(B|C) \cdot \Pro(C)  \tag{3}     \]
+        \[  \Pro(A|C^c) \cdot \Pro(C^c) > \Pro(B|C^c) \cdot \Pro(C^c)\tag{4}   \]
+
+        Escribiendo la probabilidad total de $A$ y $B$, se sigue que:
+        \[  \Pro(A) = \Pro(A|C) \Pro(C) + \Pro(A|C^c) \Pro(C^c) \tag{5}   \]
+        \[  \Pro(B) = \Pro(B|C) \Pro(C) + \Pro(B|C^c) \Pro(C^c) \tag{6}   \]
+
+        Si nos fijamos en el primer sumando de $(5)$ y $(6)$, por $(3)$ sabemos que es mayor el
+        primero, de la misma manera con el segundo sumando de $(5)$ y $(6)$ usando $(4)$.
+
+        Ergo $\Pro(A)>\Pro(B)$.
+    \end{proof}
+
+    \item Si $\Pro(A|C) > \Pro(A|C^c)$ y $\Pro(B|C)>\Pro(B|C^c)$.
+    Demuestra que $\Pro(AB|C) > \Pro(AB|C^c)$ ó exhibe un contraejemplo definiendo eventos 
+    $A, B, C$ en donde dicha afirmación no se cumpla.
+    
+    \textit{Hint:} Sean $A, B, C \in S$ los eventos que definen si al lanzar un par de dados ocurre:
     \begin{itemize}
         \item $C =$ {La suma de ambos dados es igual a 10}
         \item $A =$ {El Primer Dado cayo 6}
         \item $B =$ {El Segundo Dado cayo 6}
     \end{itemize}
 
+    \sol \cej Se mostrará que $\Pro(AB|C) \gneq \Pro(AB|A^c)$.
+
+    Primero se obtendrá $\Pro(AB|C)$ que significa que el primer y segundo dado cayeron en 6, dado
+    que la suma de ambos de 10, y eso obviamente nunca se puede cumplir, por lo que $\Pro(AB|C) = 0$.
+
+    Ahora bien, obteniendo $\Pro(AB|C^c)$ que significa que el primer y segundo dado cayeron en 6,
+    dado que la suma de ambos no es 10. Obteniendo la probabilidad de $\Pro(C^c) = \frac{33}{36}$
+    (porque las únicas parejas que no cumplen eso son $(4, 6),(5, 5),(6, 4)$),
+    la probabilidad de $\Pro(A|C^c) = \frac{5}{33}$ y $\Pro(B|C^c) = \frac{5}{33}$. Entonces
+    $\Pro(AB|C^c) = \frac{1}{33}$.
+
+    Por tanto $\Pro(AB|C) \gneq \Pro(AB|A^c)$.
 \end{itemize}
 
 %%%%%%%%%%%%%%% (12)
-\item Jenny tiene ciertos criterios para elegir a su siguiente Novio. Ella tiene $n$ pretendientes
-y compara entre si a cualquier par de chicos con los que sale y los clasifica. Ella puede decidir
-tener una ``Cita'' con algún pretendiente en cualquier instante al azar. Cuando ella conoce bien a
-algún pretendiente puede aceptar ser su novia ó bien lo rechaza (No sin antes...)
-
-Si ella acepta ser Novia de algún pretendiente ella no intentara a los pretendientes con los que
-aun no ha tenido una cita (En la vida real ... Whatsapp, Facebook, SNAPCHAT, etc. ¿Verdad?). Si ella
-ha rechazado a algún pretendiente ella nunca mas lo podría considerar como opción para ser su novio.
-La chica en el proceso de la búsqueda de su novio no elegirá a un pretendiente que comparado con los
-chicos que anteriormente ha salido considere sea "peor". El objetivo de ella es maximizar la
-probabilidad de elegir al ``mejor'' pretendiente para ser su novio. Y para ello sigue la siguiente
-estrategia:
-
-Para alguna $m$, $0 \leq m < n$ ella descarta a los primeros $m$ pretendientes. Ella acepta salir
-con ellos y después de conocerlos los descarta sin importarle cual de ellos es mejor. Entonces
-tomara como Novio, al siguiente pretendiente que considere mejor que los chicos a los que descarto.
-En términos de $n$ ¿Cual es el valor de m que maximiza la probabilidad de que la chica elija al
-mejor pretendiente ?
-
-\textit{Hint: } Sean $E_m \in S$, $\{ B_i \}_{i=1}^{n} \subseteq S$ los eventos que definen
-\begin{itemize}
-    \item $E_m =$ {Jenny elige al mejor pretendiente}
-    \item $B_i =$ {El mejor pretendiente es la i-esima cita de Jenny}
-\end{itemize}
-Por la ley de la Probabilidad Total se sigue que:
-\[
-    \Pro(E_m) = \sum_{i=1}^{\infty} \Pro(E_m | B_i) \Pro(Bi)
-        \quad \text{donde } \Pro(B_i) = \frac{1}{n}
-\]
-Es evidente que $\Pro(E_m|B_i) = 0$ si $1 \leq i \leq m$, ahora si $i > m$ el i-esimo pretendiente
-es el mejor entonces Jenny lo elegirá a el si y solo si el mejor de los anteriores esta dentro de
-los primeros $m$ pretendientes que inicialmente descarto. De modo que
-\[
-    \Pro(E_m|B_i)= \frac{m}{i-1} \quad \text{si } i>m
-\]
-Ademas utiliza el hecho que
-\[
-    \sum_{i=m+1}^{n} \frac{1}{i+1} \approx \int_{m}^{n} \frac{1}{x}dx
-\]
-Ahora obtén el valor aproximado de $m$ para el cual $\Pro(E_m)$ es máxima.
+\item No la haré.
 
 %%%%%%%%%%%%%%% (13)
-\item Una mujer llamada Paulina tiene 2 pretendientes: Ernesto y Luis. Ella esta decidida a ser
-novia de alguno de ellos. Ernesto tiene una probabilidad de 0.7 de ser el elegido y Luis una de 0.3.
-Si Ernesto es novio de Paulina hay una probabilidad de 0.4 de que terminen en matrimonio y si es
-Luis, una de 0.3. Si despues de unos años hay reportes de que Paulina se caso con alguno de los
-ellos. ¿Cual es la probabilidad de que haya sido con Luis?
+\item No la haré.
 
-%%%%%%%%%%%%%%% (12)
-\item Investiga y resuelve el problema de Regla de la Sucesión de Laplace.
+%%%%%%%%%%%%%%% (14)
+\item No la haré.
 
-\textit{Hint:} Ver[Ross] Ejemplo 5e, Capitulo 3
 
-\sol
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.25]{nyan.png}
+    \caption{Nyan cat}
+\end{figure}
 
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
