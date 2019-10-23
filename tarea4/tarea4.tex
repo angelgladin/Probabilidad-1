@@ -52,7 +52,7 @@
 % Define styles for bags and leafs
 \tikzstyle{bag} = [text width=4em, text centered]
 \tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{import}
 
@@ -122,7 +122,7 @@
     No. cuenta: 313112470\\
     \texttt{angelgladin@ciencias.unam.mx}
 }
-\date{-1 de octubre 2019}
+\date{22 de octubre 2019}
 \maketitle
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -154,10 +154,52 @@
     \item Obtén $P(X = i)$ si $i=1,2,3$
     
     \sol
+    Primero hay que recordar que gracias a la función de distribución acumulada de la variables
+    aleatoria $X$ nos permite calcular $P(X=a)$ como:
+    $$P(x=a) = P(x \leq a) - P(x < a) = F(a) - F(a_-)$$
+    Lo que significa que $a_-$ es el siguiente valor más pequeño posible de $a$.
+    \begin{itemize}
+        \item $i=1$.
+        
+        \begin{align*}
+            P(x = 1)
+                &= P(x \leq 1) - P(x < 1)\\
+                &= F(1) - \lim_{n \to \infty}F(1 - \frac{1}{n})\\
+                &= \frac{1}{2} - \frac{1}{4}\\
+                &= \frac{3}{4}
+        \end{align*}
+
+        \item $i = 2$.
+        \begin{align*}
+            P(x = 1)
+                &= P(x \leq 2) - P(x < 2)\\
+                &= F(2) - \lim_{n \to \infty}F(2 - \frac{1}{n})\\
+                &= \frac{11}{12} - (\frac{1}{2} + \frac{1}{4})\\
+                &= \frac{1}{6}
+        \end{align*}
+
+        \item $i = 3$.
+        \begin{align*}
+            P(x = 3)
+                &= P(x \leq 3) - P(x < 3)\\
+                &= F(3) - \lim_{n \to \infty}F(3 - \frac{1}{n})\\
+                &= 1 - \frac{11}{12}\\
+                &= \frac{1}{12}
+        \end{align*}
+    \end{itemize}
 
     \item Calcula $P(\frac{1}{2} < X < \frac{3}{2})$
     
-    \sol
+    \sol Recordando que\footnote{Propiedad de un evento en términos de $F(x)$, página 140
+    \emph{Introducción a la probabilidad}, Luis Rincón, 2016.}:
+    $$P(a < x < b) = P(x < b) - P(x \leq a) = F(b_-) - F(a)$$
+
+    \begin{align*}
+        P(\frac{1}{2} < X < \frac{3}{2})
+            &= P(x < \frac{3}{2}) - P(x \leq \frac{1}{2})\\
+            &= \lim_{n \to \infty}F(\frac{1}{2} + \frac{\frac{3}{2}-1}{4}) - \frac{\frac{1}{2}}{4}\\
+            &= \frac{1}{2}
+    \end{align*}
 \end{itemize}
 
 %%%%%%%%%%%%%%% (2)
@@ -168,12 +210,20 @@
 \begin{itemize}
     \item Obtén el valor de $c$.
     
-    \sol
+    \sol Recordando que para una variables aleatoria discreta $X$, definimos la función de masa de
+    probabilidad $p(a)$ de $X$ por $p(a) = P\{ X=a \}$. Como $X$ debe tomar valores $x_i$, se tiene que:
+    $$\sum_{i=1}^{\infty}p(x_i) = 1$$
 
+    Entonces:
+    \[
+        \sum_{i=1}^{6} P_X(i) = c(1+2+3+4+5+6) = c\cdot21 = 1
+    \]
+    Por tanto, $c=\frac{1}{21}$.
     
     \item Obtén la probabilidad de que $X$ tome algún valor ``Par''.
     
-    \sol
+    \sol $P\{ X \text{ es par} \} = P_X(2) + P_X(4) + P_X(6) =
+        \frac{2}{21} + \frac{4}{21} + \frac{6}{21} = \frac{12}{21}$.
 \end{itemize}
 
 %%%%%%%%%%%%%%% (3)
@@ -183,15 +233,62 @@
     \]
     Encuentra el valor de $\mathds{E}(|X|)$ de las siguientes maneras:
     \begin{itemize}
-        \item Obtén la f.m.p de la Variable Aleatoria $Y = |X|$, usa este resultado para obtener $\mathds{E}|X|$.
+        \item Obtén la f.m.p de la Variable Aleatoria $Y = |X|$, usa este resultado para
+        obtener $\mathds{E}(|X|)$.
         
-        \sol
+        \sol Recordando la definición de $\mathds{E}$:
+        \begin{definition}
+            Sea $X$ una variables aleatoria discreta con función de probabilidad $f(x)$. La esperanza
+            de $X$ de define como el número
+            $$  \mathds{E}(X) = \sum_{x} xf(x)  $$
+            suponiendo que esta suma es absolutamente convergente, es decir, cuando la suma de los
+            valores absolutos es convergente.
+        \end{definition}
         
+        Los valores que puede tomar la variable aleatoria $Y = |X|$ son 1 y 0. Entonces:
+        Obteniendo $Y = 1$:
+        \[
+            P(Y=1) = P(X = -1 \lor X = 1) = P(X=-1) + P(X=1) = \frac{1}{2} + \frac{1}{6} = \frac{2}{3}
+        \]
+        Obteniendo $Y=0$:
+        \[
+            P(Y=0) = P(X=0) = \frac{1}{3}
+        \]
+        Finalmente obteniendo $\mathds{E}(|X|)$:
+        \[
+            \mathds{E}(|X|) = \mathds{E}(Y) = \sum_{x \in \{ 0, 1 \}} xf(x) =
+            0 \cdot \frac{1}{3} + 1 \cdot \frac{2}{3} = \frac{2}{3}
+        \]
         \item Usa la Ley del ``Estadistico Inconsiente'' con la función $g(x) = |x|$.
         
         \sol
+
+        \begin{definition}
+            La ley del estadístico inconsiente\footnote{En inglés \emph{Law of The Unconscious
+            Statistician (LOTUS)}} dice lo siguiente\footnote{Definición obtenida de \emph{A First
+            Course in Pobability}, Sheldon Ross, 8va edición.}.
+
+            Si $X$ es una variable discreta aleatoria que toma en unos de sus valores $x_i$, $i \geq 1$,
+            con respectivas probabilidades $p(x_i)$, entonces para cualquier valor real evaluado en
+            la función $g$,
+            $$  \mathds{E}[g(X)]= \sum_{i} g(x_i)p(x_i) $$
+        \end{definition}
+
+        Entonces,
+
+        \[
+            \mathds{E}(g(X)) = \sum_{x} |x| p(x) = |-1| \cdot \frac{1}{2} + |0| \cdot \frac{1}{3} +
+            |1| \cdot \frac{1}{6} = \frac{2}{3}
+        \]
+
     \end{itemize}
-    
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.25]{gato.png}
+        \caption{Mi cara cuando vi la tarea por primera vez.}
+\end{figure}
+
 %%%%%%%%%%%%%%% (4)
 \item Natalia coloca 5 cajitas cerradas sobre una mesa durante una reunión familiar. Tres de ellas
 contienen algún obsequio mientras que las otras dos cajas no tienen nada. Si alguno de sus sobrinos
@@ -203,15 +300,68 @@ pequeños comienza a abrir las cajas. Sea $X$ la variable aleatoria que denota:
 \begin{itemize}
     \item Obtén la función de masa de probabilidad asociada a $X$
     
-    \sol
+    \sol Obteniendo la probabilidad el premio esté en la primera caja es
+    $P(X=1) = \frac{3}{5}$.
 
+    La probabilidad de que la segunda caja contenga el premio, es la probabilidad de que la primera
+    caja no contenga el premio por la probabilidad de que la segunda caja contenga el premio que es:
+    $P(X=2) = \frac{2}{5} \cdot \frac{3}{4} = \frac{3}{10}$.
+
+    La probabilidad de que la tercera caja contenga el premio, es la probabilidad de que la primera
+    caja no contenga el premio, por la probabilidad de que la segunda no tenga el premio y que la
+    tercera sí la tenga, que es:
+    $P(X=3) = \frac{2}{5} \cdot \frac{1}{4} \cdot \frac{3}{3} = \frac{1}{10}$.
+
+    Por tanto la fucnión de masa de probabilidad es:
+    \[
+        P(X=x) =
+            \begin{cases}
+                \frac{3}{5} & x=1\\
+                \frac{3}{10} & x=2\\
+                \frac{1}{10} & x=3
+            \end{cases}
+    \]
+    
     \item Obtén $\mathds{E}(X)$.
     
-    \sol
+    \sol Recordando la fórmula de la esperanza, entonces:
+    \[
+        \mathds{E}(X) = (1 \cdot \frac{3}{5}) + (2 \cdot \frac{3}{10}) + (3 \cdot \frac{1}{10}) =
+        \frac{15}{10} = \frac{3}{2}
+    \]
 
     \item Obtén $Var(X)$.
     
     \sol
+    \begin{definition}
+        Sea $X$ una variable aleatoria con esperanza $\mu$, entonces la varianza de $X$ denotada por
+        $Var(X)$, está definida por:\footnote{Definición obtenida de \emph{A First
+        Course in Pobability}, Sheldon Ross, 8va edición. página 133.}
+        $$  Var(X) = \mathds{E}[(X - \mu)^2]    $$
+        Una fórmula alternativa para $Var(X)$ se deriva como sigue:
+        \begin{align*}
+            Var(X)
+                &= \mathds{E}[(X - \mu)^2]\\
+                &= \sum_{x} (x - \mu)^2 p(x)\\
+                &= \sum_{x} (x^2 - 2\mu x + \mu^2) p(x)\\
+                &= \sum_{x} x^2p(x) - 2\mu \sum_{x} x p(x) + \mu^2 \sum_{x} p(x)\\
+                &= \mathds{E}[X^2] - 2\mu^2 + \mu^2\\
+                &= \mathds{E}[X^2] - \mu^2\\
+        \end{align*}
+        Que es,
+        \[
+            Var(X) = \mathds{E}[X^2] - (\mathds{E}[X])^2
+        \]
+    \end{definition}
+
+    Con la definición previa,
+    \begin{align*}
+        Var(X) &= \mathds{E}[X^2] - (\mathds{E}[X])^2\\
+            &= (1^2 \cdot \frac{3}{5}) + (2^2 \cdot \frac{3}{10}) + (3^2 \cdot \frac{1}{10}) - (\frac{3}{2})^2\\
+            &= \frac{27}{10} - \frac{9}{4}\\
+            &= \frac{108-90}{40}\\
+            &= \frac{9}{20}
+    \end{align*}
 \end{itemize}
 
 %%%%%%%%%%%%%%% (5)
@@ -219,50 +369,232 @@ pequeños comienza a abrir las cajas. Sea $X$ la variable aleatoria que denota:
 se van seleccionando cartas una a una hasta el instante que un A's aparece. Obtén el número esperado
 de cartas que se tuvieron que haber volteado una a una, hasta el momento en que un A's es seleccionado.
 
-\sol
+\sol La baraja Inglesa tiene 4 A's y 48 de las demás. Sea $X_i$ que representa a la función indicadora
+para la carta en la posición $i$ con valores 1 si todas las A's están detrás de esa carta ó 0 en
+otro caso.
+\[
+    X_i =
+        \begin{cases}
+            1 & \text{Si todas las A's están atrás del índice $i$}\\
+            0 & \text{e.o.c.}
+        \end{cases}
+\]
+Teniendo así que el número de formas de retirar son $1 + \sum_{i=1}^{48} X_i$.
+
+El 1 que se sumó al principio es el caso cuando en la primera vez que se retiró una carta salió una A.
+
+Sea $X$ la variable aleatoria que indica el número de cartas que fueron volteadas hasta que apareció un A's.
+
+Ahora considerando la primera vez que sacamos (pero no salió una A la primera vez que se retiró una
+carta, ósea el caso inicial), la probabilidad es $\frac{1}{5}$ porque hay 6 posibles
+escenarios. Denotaremos a $O$ como cualquier otra carta que no sea un A's y $A$ como un A's posible,
+entonces se tienen:
+\begin{itemize}
+    \item $\{ O,A,A,A,A \}$
+    \item $\{ A,O,A,A,A \}$
+    \item $\{ A,A,O,A,A \}$
+    \item $\{ A,A,A,O,A \}$
+    \item $\{ A,A,A,A,O \}$
+\end{itemize}
+
+Con el análisis previo, le podemos sacar la esperanza a cada término:
+\begin{align}
+    \mathds{E}(X) 
+        &= 1 + \sum_{i=1}^{48} X_i\\
+        &= 1 + \frac{48}{5} = \frac{53}{5}\\
+        &= 10.6
+\end{align}
 
 %%%%%%%%%%%%%%% (6)
 \item En un sorteo de la Loteria Nacional se venden 2,000,000 de raspaditos cuyo valor es de \$10
-pesos cada uno. Si 4000 de ellos tienen un premio de un valor de \$300 pesos. 500 boletos tienen un
-premio de \$8000 mientras que solo un boleto tiene un premio de \$10,000,000. Si ningún boleto tiene
+pesos cada uno. Si 4,000 de ellos tienen un premio de un valor de \$300 pesos. 500 boletos tienen un
+premio de \$8,000 mientras que solo un boleto tiene un premio de \$10,000,000. Si ningún boleto tiene
 mas de un premio. ¿Cuál es el valor esperado del premio que ganara un jugador que compra un boleto
 de este sorteo?
 
-\sol
+\sol 
 
 %%%%%%%%%%%%%%% (7)
 \item Sea $X$ una Variable Aleatoria con función de masa de probabilidad: 
 \[
     P(X = 1) = p = 1 - P(X = -1)
 \]
-Obtén $c \not= 1$ tal que $\mathds{E}(cx)=1$
+Obtén $c \not= 1$ tal que $\mathds{E}(c^x)=1$
 
-\sol
+\sol Sabemos que para toda $c \in \R$ se cumple que:
+$$  \mathds{E}(c^x) = 1 = cp + \frac{1-p}{c}    $$
+Entonces si tenemos $1 = cp + \frac{1-p}{c}$ y multiplicamos por $c$ ambos lados, se obtiene:
+\[
+    c = c^2p + 1-p
+\]
+Reacomodando la expresión previa se tiene:
+\[
+    c^2p - c + (1-p) = 0
+\]
+Teneindo así una ecuación de cuadrática, utilizando la fórmula general para resolverla
+$   x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}  $. Entonces:
+\[
+    c = \frac{1 \pm \sqrt{1 - 4p(1-p)}}{2p}
+\]
+Fijándonos en el discriminate $\Delta = 1 - 4p(1-p) = (4p-1)^2$. Entonces
+\[
+    c = \frac{1 \pm 4p-1}{2p} = 1 \quad \land \quad \frac{1-p}{p}
+\]
+Pero como por hipótesis $c \not= 1$. Por tanto $c = \frac{1-p}{p}$.
 
 
 %%%%%%%%%%%%%%% (8)
+\item Sea $N$ una Variable Aleatoria que toma valores enteros no-negativos. Demuestra que:
+\[
+    \mathds{E}(N) = \sum_{i=0}^{\infty} P(N > i)
+\]
+Primero hay que notar que $\sum_{i=0}^{\infty} P(N > i)$ puede ser vista como
+$\sum_{i=0}^{\infty} \sum_{j=i}^{\infty} P(N = i)$.
+\begin{proof}
+    \begin{align*}
+        \sum_{i=0}^{\infty} P(N > i)
+            &= \sum_{i=0}^{\infty} \sum_{j=i}^{\infty} P(N = i) && \text{Observación previa}\\
+            &= \sum_{j=0}^{\infty} \sum_{i=0}^{j} P(N = i) && \text{Conmutatividad de la suma}\\
+            &= \sum_{j=0}^{\infty} i \cdot P(N = i) && \text{Evaluando la función de probabilidad en $i$}\\
+            &= \mathds{E}(N) && \text{Definición de esperanza}
+    \end{align*}
+\end{proof}
+
 %%%%%%%%%%%%%%% (9)
+\item Paulina guarda en su recámara una caja en donde tiene almacenadas 20 pilas. Ella elige 3 pilas
+al azar para utilizarlas en un nuevo aparato electrónico que ha comprado. Si hay 4 pilas en la caja
+que ya no tienen energía. ¿Cuál es el número esperado de pilas defectuosas seleccionadas en la muestra?
+
+\sol Sea $X$ la variable aleatoria asociada con el número de pilas defectuosas seleccionadas en
+la muestra, entonces:
+\[
+    P(X=x) =
+        \begin{cases}
+            \frac{\binom{16}{3}}{\binom{20}{3}} \approx & x=0\\\\
+            \frac{\binom{16}{3} \cdot }{\binom{20}{3}} \approx & x=1\\\\
+            \frac{\binom{16}{3}}{\binom{20}{3}} \approx & x=2
+        \end{cases}
+\]
+
 %%%%%%%%%%%%%%% (10)
+\item Decimos que la Variable Aleatoria $X$ tiene una distribución de \emph{Yule-Simons}. Si la
+función de masa de probabilidad asociada a $X$ esta dada por:
+\[
+    P\{ X=n \} = \frac{4}{n(n+1)(n+2)} \text{ si } n \geq 1
+\]
+\begin{itemize}
+    \item Prueba que:
+    \[
+        \sum_{n=1}^{\infty} P(X = n) = 1
+    \]
+    \textit{Hint:} Utiliza el hecho que: $\frac{1}{n(n+1)(n+2)} = \frac{1}{n(n+1)} - \frac{1}{n(n+2)}$
+    luego entonces usa el hecho que $\frac{k}{n(n+k)} = \frac{1}{n} - \frac{1}{n+k}$.
+    \begin{proof}
+        Simplificando la expresión para $P(X=n)$:
+        \[
+            \frac{1}{n(n+1)(n+2)} = \frac{1}{n(n+1)} - \frac{1}{n(n+2)} =
+            (\frac{1}{n} - \frac{1}{n+1}) - \frac{1}{2}(\frac{1}{n} - \frac{1}{n+2})
+        \]
+        Ahora las sumas parciales pueden ser calculadas directamente:
+        \begin{align*}
+            \sum_{n=1}^{N} P(X = n)
+                &= \sum_{n=1}^{N} \frac{4}{n(n+1)(n+2)}\\
+                &= \sum_{n=1}^{N} 4 (\frac{1}{n} - \frac{1}{n+1}) - 2 (\frac{1}{n} - \frac{1}{n+2})\\
+                &= 4 (\sum_{n=1}^{N} \frac{1}{n} - \sum_{n=1}^{N} \frac{1}{n+1}) - 2 (\sum_{n=1}^{N} \frac{1}{n} - \sum_{n=1}^{N} \frac{1}{n+2})\\
+                &= 4 (1 - \frac{1}{N+1}) - 2 (1 + \frac{1}{2} - \frac{1}{N+1} - \frac{1}{N+2})\\
+                &= 1 - \frac{2}{N+1} + \frac{2}{N+2}
+        \end{align*}
+
+        Para terminar, la suma infinita está dada por el límite de las sumas parciales:
+        \[
+            \sum_{n=1}^{\infty} P(X = n) = \lim_{N \to \infty} \sum_{n=1}^{N} P(X=n) =
+            \lim_{N \to \infty} 1 - \frac{2}{N+1} + \frac{2}{N+2} = 1
+        \]
+    \end{proof}
+
+    \item Prueba que $\mathds{E}(X) = 2$.
+    \begin{proof}
+        \begin{align*}
+            \mathds{E}[X]
+                &= \sum_{n=1}^{\infty} n P(X = n) = \sum_{n=1}^{\infty} \frac{4n}{n(n+1)(n+2)}\\
+                &= \sum_{n=1}^{\infty} \frac{4}{(n+1)(n+2)} = \lim_{N \to \infty} \sum_{n=1}^{\infty} \frac{4}{(n+1)(n+2)}\\
+                &= \lim_{N \to \infty} 4 \sum_{n=1}^{N} \frac{1}{n+1} - \frac{1}{n+2}\\
+                &= \lim_{N \to \infty} 4 (\frac{1}{2} - \frac{1}{N+2}) = \lim_{N \to \infty} 2 - \frac{2}{N+2} = 2\\
+        \end{align*}
+    \end{proof}
+
+    \item Prueba que $\mathds{E}(X^2) = \infty$.
+    \begin{proof}
+        Para el segundo momento, se tiene:
+        \begin{align*}
+            \mathds{E}[X^2]
+                &= \sum_{n=1}^{\infty} n^2 P(X = n) = \sum_{n=1}^{\infty} \frac{4n^2}{n(n+1)(n+2)}\\
+                &= \sum_{n=1}^{\infty} \frac{4n}{(n+1)(n+2)}
+        \end{align*}
+        Y eso diverge, por lo tanto $\mathds{E}(X^2) = \infty$.
+    \end{proof}
+\end{itemize}
+
 %%%%%%%%%%%%%%% (11)
+\item Se lanzan 2 monedas. La primera de ellas cae \emph{Sol} con probabilidad 0.6 mientras que la
+segunda lo hace con probabilidad 0.7. Sea $X$ la Variable Aleatoria que denota.
+$$  X = \text{El número de Soles que ocurren al realizar el experimento} $$
+\begin{itemize}
+    \item Obtén $P(X = 1)$
+
+    \sol
+
+    \item Determina $\mathds{E}(X)$
+    
+    \sol
+    
+\end{itemize}
 %%%%%%%%%%%%%%% (12)
+\item Michelle lanza un dado 10 veces. Obtén el valor esperado de la suma de los resultados que
+se obtienen en cada lanzamiento del dado.
+
+\sol
+
 %%%%%%%%%%%%%%% (13)
+\item Un total de $n$ bolas numeradas desde el 1 hasta $n$, son puestas en $n$ urnas las cuales
+también están numeradas desde el 1 hasta la $n$, de tal forma que la $i$-ésima bola puede estar en
+cualquiera de las urnas $1,2,\ldots,i$ con igual probabilidad. Obtén:
+\begin{itemize}
+    \item El valor esperado de las urnas que están vacías
+    
+    \sol
+
+    \item La probabilidad de que ninguna de las urnas estén vacías
+    
+    \sol
+\end{itemize}
+
 %%%%%%%%%%%%%%% (14)
+\item En una cierta región del Bosque de Chapultepec hay $r$-tipos de ciertas especies de insectos.
+Un biólogo acude al lugar y captura a varios de ellos independientemente del tipo de especie que
+sean. Denotamos a $P_i$ donde $i = 1,2,\ldots,r$:
+\[
+    Pi = \text{La probabilidad de que un insecto del tipo $i$ sea capturado donde } \sum_{i=1}^r P_i = 1
+\]
+\begin{itemize}
+    \item Calcula el valor esperado del número de insectos que el biólogo captura antes que un
+    insecto del 1er. tipo sea capturado.
 
+    \sol
 
+    \item Obtén el Valor Esperado de los tipos de insectos que son capturados antes que un insecto
+    del 1er. tipo sea capturado.
 
-
-
-
-
-
-
+    \sol
+\end{itemize}
 
 
 \begin{figure}[H]
-        \centering
-        \includegraphics[scale=0.25]{gato.png}
-        \caption{Mi cara cuando vi la tarea por primera vez.}
+    \centering
+    \includegraphics[scale=0.5]{triste.jpg}
+    \caption{Gato triste con sombrero :(}
 \end{figure}
+
 
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
