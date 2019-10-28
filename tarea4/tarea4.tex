@@ -216,7 +216,7 @@
 
     Entonces:
     \[
-        \sum_{i=1}^{6} P_X(i) = c(1+2+3+4+5+6) = c\cdot21 = 1
+        \sum_{i=1}^{6} P_X(i) = c(1+2+3+4+5+6) = c \cdot 21 = 1
     \]
     Por tanto, $c=\frac{1}{21}$.
     
@@ -398,21 +398,50 @@ entonces se tienen:
 \end{itemize}
 
 Con el análisis previo, le podemos sacar la esperanza a cada término:
-\begin{align}
+\begin{align*}
     \mathds{E}(X) 
         &= 1 + \sum_{i=1}^{48} X_i\\
         &= 1 + \frac{48}{5} = \frac{53}{5}\\
         &= 10.6
-\end{align}
+\end{align*}
 
 %%%%%%%%%%%%%%% (6)
 \item En un sorteo de la Loteria Nacional se venden 2,000,000 de raspaditos cuyo valor es de \$10
 pesos cada uno. Si 4,000 de ellos tienen un premio de un valor de \$300 pesos. 500 boletos tienen un
 premio de \$8,000 mientras que solo un boleto tiene un premio de \$10,000,000. Si ningún boleto tiene
-mas de un premio. ¿Cuál es el valor esperado del premio que ganara un jugador que compra un boleto
+mas de un premio. ¿Cuál es el valor esperado del premio que ganará un jugador que compra un boleto
 de este sorteo?
 
-\sol 
+\sol Denotaremos a la variable aleatoria $X$ como la ganancia en pesos que tendrá un jugador escogido
+aleatoriamente en el juego.
+
+Como cada ``raspaditos'' tiene un precio de \$10 pesos entonces si gana o no el jugador se le
+descontará del premio (en caso de ganar) ó solo habrá sido dinero que gasto el jugador sin ganancia
+alguna. Se hace esta observación porque se le restará el precio al valor $x$ que toma la variable
+aleatoria.
+
+El número de ``raspaditos'' sin premio es $2,000,000 - 4,000 - 500 - 1 = 1,995,499$.
+
+Teniendo preestablecido eso, podemos dar la función de masa de probabilidad con su imagen; en
+este caso siguiendo el enfoque probabilidad clásica, donde es el número de boletos que queremos sobre
+el número total de ``raspaditos'' (2,000,000). Entonces:
+
+\begin{align*}
+    P(X=x) =
+        \begin{cases}
+            \frac{1,995,499}{2,000,000} = 0.9977495 & x =-10\\
+            \frac{4,000}{2,000,000} = 0.002 & x = 300-10 = 290\\
+            \frac{500}{2,000,000} = 0.00025 & x = 8,000 = 7,990\\
+            \frac{1}{2,000,000} = 0.0000005 & x =10,000,000-10=9,999,990\\
+        \end{cases}
+\end{align*}
+
+Obteniendo la esperanza:
+\begin{align*}
+    \mathds{E}(X)
+        &= -10 \cdot 0.9977495 + 290 \cdot 0.002 + 7,990 \cdot 0.00025 + 9,999,990 \cdot 0.0000005\\
+        &= -2.4
+\end{align*}
 
 %%%%%%%%%%%%%%% (7)
 \item Sea $X$ una Variable Aleatoria con función de masa de probabilidad: 
@@ -431,7 +460,7 @@ Reacomodando la expresión previa se tiene:
 \[
     c^2p - c + (1-p) = 0
 \]
-Teneindo así una ecuación de cuadrática, utilizando la fórmula general para resolverla
+Teniendo así una ecuación de cuadrática, utilizando la fórmula general para resolverla
 $   x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}  $. Entonces:
 \[
     c = \frac{1 \pm \sqrt{1 - 4p(1-p)}}{2p}
@@ -470,11 +499,22 @@ la muestra, entonces:
 \[
     P(X=x) =
         \begin{cases}
-            \frac{\binom{16}{3}}{\binom{20}{3}} \approx & x=0\\\\
-            \frac{\binom{16}{3} \cdot }{\binom{20}{3}} \approx & x=1\\\\
-            \frac{\binom{16}{3}}{\binom{20}{3}} \approx & x=2
+            \frac{\binom{16}{3}}{\binom{20}{3}} =
+                \frac{560}{1140}, & x=0\\\\
+            \frac{\binom{16}{2} \cdot \binom{4}{1}}{\binom{20}{3}} =
+                \frac{480}{1140}, & x=1\\\\
+            \frac{\binom{16}{1} \cdot \binom{4}{2}}{\binom{20}{3}} =
+                \frac{96}{1140}, & x=2\\\\
+            \frac{\binom{4}{3}}{\binom{20}{3}} =
+                \frac{4}{1140}, & x=3
         \end{cases}
 \]
+Número esperado de pilas defectuosas seleccionadas de la muestra:
+\begin{align*}
+    \mathds{E}(X)
+        &= 0 \cdot \frac{560}{1140} + 1 \cdot \frac{480}{1140} + 2 \frac{96}{1140} + 3 \frac{4}{1140}\\
+        &= \frac{480+192+12}{1140} = \frac{684}{1140}
+\end{align*}
 
 %%%%%%%%%%%%%%% (10)
 \item Decimos que la Variable Aleatoria $X$ tiene una distribución de \emph{Yule-Simons}. Si la
@@ -542,18 +582,63 @@ $$  X = \text{El número de Soles que ocurren al realizar el experimento} $$
 \begin{itemize}
     \item Obtén $P(X = 1)$
 
-    \sol
+    \sol Definamos a los eventos $A$ la primera moneda salió Sol, $B$ la segunda moneda salió Sol.
+    Para encontrar $P(X = 1)$ debemos tener en cuenta los siguientes casos, en el primer lanzamiento
+    la primera moneda salío Sol y la segunda águila, ó, lo opuesto. Entonces:
+    \begin{align*}
+        P(X=1)
+            &= P(AB^c \cup A^cB) & \text{De los posibles casos}\\
+            &= P(AB^c) +  P(A^cB) & \text{Por ser eventos disjuntos}\\
+            &= P(A)P(B^c) +  P(A^c)P(B) & \text{Por ser eventos independientes}\\
+            &= 0.6 \cdot 0.3 +  0.4 \cdot 0.7 & \text{Hipótesis y obteniendo complemento}\\
+            &= 0.46
+    \end{align*}
 
     \item Determina $\mathds{E}(X)$
     
-    \sol
+    \sol Para deterinar la esperanza nos faltan obtener los otros dos posibles casos; cuando se
+    lanzan las dos monedas y las dos caen en Águila ($P(X=0)$) y cuando se lanzan las monedas y en
+    las dos cae Sol ($P(X=2)$).
+
+    $$    P(X=0) = P(A^cB^c) = P(A^c)P(B^c) = 0.4 \cdot 0.3 = 0.12    $$
+    $$    P(X=2) = P(AB) = P(A)P(B) = 0.6 \cdot 0.7 = 0.42    $$
+
+    Entonces:
+    \begin{align*}
+        \mathds{E}(X)
+            &= \sum_{x} x P(X=x)\\
+            &= 0 \cdot 0.12 + 1 \cdot 0.46 + 2 \cdot 0.42\\
+            &= 1.3
+    \end{align*}
     
 \end{itemize}
 %%%%%%%%%%%%%%% (12)
 \item Michelle lanza un dado 10 veces. Obtén el valor esperado de la suma de los resultados que
 se obtienen en cada lanzamiento del dado.
 
-\sol
+\sol Sea $X$ la variable aleatoria que indica el lado que salió en el lanzamiento de un dado.
+Donde $P(X=x) = \frac{1}{6}$ con $x \in \{ 1,2,3,4,5,6 \}$. Entonces la esperanza es:
+\[
+    \mathds{E}(X) =
+        1 \cdot \frac{1}{6} + 2 \cdot \frac{2}{6} + 3 \cdot \frac{3}{6} + 4 \cdot \frac{4}{6} +
+        5 \cdot \frac{5}{6} + 6 \cdot \frac{6}{6} = \frac{21}{6}
+\]
+Al ser la esperanza lineal entonces podemos decir que la esperanza es $\frac{21}{6} \cdot 10 = 35$, porque:
+\begin{align*}
+    & 10 \cdot \mathds{E}(X) = 10 \cdot \frac{21}{6} = 35\\
+    \iff& 10 \cdot \mathds{E}(\sum_x x P(X=x)) = 10 \cdot \mathds{E}(1 \cdot \frac{1}{6} + 2 \cdot \frac{2}{6} + 
+        3 \cdot \frac{3}{6} + 4 \cdot \frac{4}{6} + 5 \cdot \frac{5}{6} + 6 \cdot \frac{6}{6})\\
+    \iff& \mathds{E}(10 \cdot \frac{1}{6} + 20 \cdot \frac{2}{6} + 
+    30 \cdot \frac{3}{6} + 40 \cdot \frac{4}{6} + 50 \cdot \frac{5}{6} + 60 \cdot \frac{6}{6})\\
+    \iff& \mathds{E}(\frac{10}{6}) + \mathds{E}(\frac{20}{6}) + \mathds{E}(\frac{30}{6}) + \mathds{E}(\frac{40}{6}) +
+    \mathds{E}(\frac{50}{6}) + \mathds{E}(\frac{60}{6}) = \frac{21}{6}
+\end{align*}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{triste.jpg}
+    \caption{Gato triste con sombrero :(}
+\end{figure}
 
 %%%%%%%%%%%%%%% (13)
 \item Un total de $n$ bolas numeradas desde el 1 hasta $n$, son puestas en $n$ urnas las cuales
@@ -578,7 +663,7 @@ sean. Denotamos a $P_i$ donde $i = 1,2,\ldots,r$:
 \]
 \begin{itemize}
     \item Calcula el valor esperado del número de insectos que el biólogo captura antes que un
-    insecto del 1er. tipo sea capturado.
+    insecto del 1er. tipo sea capturado. 
 
     \sol
 
@@ -587,14 +672,6 @@ sean. Denotamos a $P_i$ donde $i = 1,2,\ldots,r$:
 
     \sol
 \end{itemize}
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.5]{triste.jpg}
-    \caption{Gato triste con sombrero :(}
-\end{figure}
-
 
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
