@@ -1,20 +1,20 @@
-%%%
- %
- % Copyright (C) 2019 Ángel Iván Gladín García
- %
- % This program is free software: you can redistribute it and/or modify
- % it under the terms of the GNU General Public License as published by
- % the Free Software Foundation, either version 3 of the License, or
- % (at your option) any later version.
- %
- % This program is distributed in the hope that it will be useful,
- % but WITHOUT ANY WARRANTY; without even the implied warranty of
- % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- % GNU General Public License for more details.
- %
- % You should have received a copy of the GNU General Public License
- % along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%%%
+%%%%%
+    %
+    % Copyright (C) 2019 Ángel Iván Gladín García
+    %
+    % This program is free software: you can redistribute it and/or modify
+    % it under the terms of the GNU General Public License as published by
+    % the Free Software Foundation, either version 3 of the License, or
+    % (at your option) any later version.
+    %
+    % This program is distributed in the hope that it will be useful,
+    % but WITHOUT ANY WARRANTY; without even the implied warranty of
+    % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    % GNU General Public License for more details.
+    %
+    % You should have received a copy of the GNU General Public License
+    % along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[11pt,letterpaper]{report}
@@ -35,6 +35,7 @@
 \usepackage{commath}
 
 \usepackage{bbm}
+\usepackage{cancel}
 \usepackage{dsfont}
 \usepackage{mathrsfs}
 \usepackage{amsmath,amsthm,amssymb}
@@ -647,11 +648,51 @@ cualquiera de las urnas $1,2,\ldots,i$ con igual probabilidad. Obtén:
 \begin{itemize}
     \item El valor esperado de las urnas que están vacías
     
-    \sol
+    \sol Denotamos a la variable aleatoria $X := \{\text{El número de urnas vacías}\}$ y a la
+    función indicadora
+    $\mathbbm{1}_{X_i} := \begin{cases}
+        1 & \text{Si la urna $i$ está vacía}\\
+        0 & e.o.c
+    \end{cases}$.
+
+    Como en la en urna $i$ está vacía, las otras pelotas son depositadas en las otra urnas (en las
+    $i-1$ restantes) y esto se va a hacer para cada posible lanzamiento. Como por hipótesis nos
+    dice que la $i$-ésima bola puede estar en cualquiera de las urnas $1,2,\ldots,i$ con igual
+    probabilidad, pero justo lo que queremos es que no caiga en esa urna, obtenemos el complemento
+    que es $1 - \frac{1}{i}$.
+
+    Entonces ahora lo que debemos hacer es obtener $P(X_i = 1)$ sobre el número de las pelotas.
+    \begin{align*}
+        P(X_i)
+            &= \prod_{i=1}^{n} 1 - \frac{1}{i} = \prod_{i=1}^{n} \frac{i-1}{i}\\
+            &= (\frac{i-1}{i}) \cdot (\frac{i}{i+1}) \cdot (\frac{i+1}{i+2}) \cdot \ldots \cdot (\frac{n-1}{n})\\
+            &= (\frac{i-1}{\cancel{i}}) \cdot (\frac{\cancel{i}}{\cancel{i+1}}) \cdot 
+                (\frac{\cancel{i+1}}{\cancel{i+2}}) \cdot \ldots \cdot (\frac{\cancel{n-1}}{n})\\
+            &= \frac{i-1}{n}
+    \end{align*}
+
+    Recordando que la probabilidad de la función indicadora es igual la esperanza, i.e.
+    $$P(X)= \mathds{E}(\mathbbm{1}_X)$$
+    Entonces podemos decir que $P(X_i) = E(X_i = 1)$ que igual es sencillo demostrar.
+
+    Entonces,
+    \begin{align*}
+        \mathds{E}
+            &= \sum_{i=1}^{n} \mathds{E}(X_i) = \sum_{i=1}^{n} \frac{i-1}{n}\\
+            &= \frac{1}{n} \sum_{i=1}^{n} i-1 = \frac{1}{n} \sum_{j=0}^{n} i\\
+            &= \frac{1}{n} \cdot \frac{n(n-1)}{2}\\
+            &= \frac{n-1}{2}
+    \end{align*}
 
     \item La probabilidad de que ninguna de las urnas estén vacías
     
-    \sol
+    \sol Tenemos que para cada urna tener al menos un bola en ella la tenemos que la $n$-ésima
+    bola debe estar en la $n$-ésima urna con probabilidad $\frac{1}{n}$.
+    Y así con todas las demás pelotas y urnas con una probabilidad $\frac{1}{n-i}$ con $1 \leq i < n$.
+    Entonces las probabilidad de que ninguna de las urnas esté vacía es:
+    \[
+        \frac{1}{n} \cdot \frac{1}{n-1} \cdot \ldots \cdot \frac{1}{1} = \frac{1}{n!}
+    \]
 \end{itemize}
 
 %%%%%%%%%%%%%%% (14)
@@ -665,12 +706,36 @@ sean. Denotamos a $P_i$ donde $i = 1,2,\ldots,r$:
     \item Calcula el valor esperado del número de insectos que el biólogo captura antes que un
     insecto del 1er. tipo sea capturado. 
 
-    \sol
+    \sol Sea $X$ la variable aleatoria que denota el número de insectors capturado antes de que un
+    insecto del 1er tipo sea capturado. Entonces
+    \[
+        P(X=x) = (1-P_1)^xP_1
+    \]
+    Se sigue que
+    \begin{align*}
+        \mathds{E}(X)
+            &= \sum_{x=0}^{\infty} x(1-P_1)^x P_1\\
+            &= P_1 \sum_{x=0}^{\infty} x(1-P_1)^x\\
+            &= P_1 \cdot \frac{1-P_1}{P_1^2}
+                && \text{Por la serie geométrica } \sum_{n=1}^{\infty} nz^n = \frac{z}{(1-z)^2}, \quad |z| < 1\\
+            &= \frac{1-P_1}{P_1}
+    \end{align*}
 
     \item Obtén el Valor Esperado de los tipos de insectos que son capturados antes que un insecto
     del 1er. tipo sea capturado.
 
-    \sol
+    \sol Para $i=2,\ldots,r$, sea $Y_i = 1$ si hay un tipo $i$ capturado antes del primer insecto
+    del 1er tipo y $Y_i = 0$ en otro caso. Entonces $\sum_{i=2}^{r}Y_i$ es el número total de tipos
+    de insectos que son capturados antes del primero del tipo 1. Para cualquier $i = 1,\ldots,r$.
+    Entonces
+    \[
+        \mathds{E}(Y_i) = P(Y_i = 1) = \frac{p_i}{p_1+p_i}
+    \]
+    Por lo tanto
+    \[
+        \mathds{E}(\sum_{i=2}^{r} Y_i) = \sum_{i=2}^{r} \frac{p_i}{p_1 + p_i}
+    \]
+
 \end{itemize}
 
 \end{enumerate}
