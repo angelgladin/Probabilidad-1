@@ -1,0 +1,411 @@
+%%%%%
+    %
+    % Copyright (C) 2019 Ángel Iván Gladín García
+    %
+    % This program is free software: you can redistribute it and/or modify
+    % it under the terms of the GNU General Public License as published by
+    % the Free Software Foundation, either version 3 of the License, or
+    % (at your option) any later version.
+    %
+    % This program is distributed in the hope that it will be useful,
+    % but WITHOUT ANY WARRANTY; without even the implied warranty of
+    % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    % GNU General Public License for more details.
+    %
+    % You should have received a copy of the GNU General Public License
+    % along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,letterpaper]{report}
+\usepackage[margin=.7in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{float}
+
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{commath}
+
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+\usepackage{longtable}
+
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usepackage{verbatim}
+
+% Set the overall layout of the tree
+\tikzstyle{level 1}=[level distance=3.5cm, sibling distance=3.5cm]
+\tikzstyle{level 2}=[level distance=3.5cm, sibling distance=2cm]
+
+% Define styles for bags and leafs
+\tikzstyle{bag} = [text width=4em, text centered]
+\tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\usepackage{import}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Pro}{\mathds{P}}
+\newcommand{\Oh}{\mathcal{O}} %% Notacion "O"
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\ord}{\text{ord}}
+\newcommand{\sol}{\textbf{\underline{Solución}: }} %% Solucion
+\newcommand{\af}{\textbf{\underline{Afirmación}: }}
+\newcommand{\cej}{\textbf{\underline{Contraejemplo}: }}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{
+        Universidad Nacional Autónoma de México\\
+        Facultad de Ciencias\\
+        Probabilidad I\\
+    \vspace{1cm}
+    \large
+        \textbf{Tarea 5}\\
+        \textbf{Variables Aleatorias Discretas II}
+}
+\author{
+    Ángel Iván Gladín García\\
+    No. cuenta: 313112470\\
+    \texttt{angelgladin@ciencias.unam.mx}
+}
+\date{9 de noviembre 2019}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Teorema}
+\newtheorem{example}{Ejemplo}
+\newtheorem{corollary}{Corolario}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definicion}
+\newtheorem{prop}{Proposicion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}
+
+%%%%%%%%%%%%%%% (1)
+\item Si cada persona en una comunidad de 1000 habitantes tiene un 1\% de chances de resultar
+infectado de un peligroso virus. Suponiendo que una persona resulta infectada independientemente de
+lo que ocurra con otra persona de la comunidad. Calcula la probabilidad de que:
+\begin{itemize}
+    \item Exactamente haya 10 personas infectadas
+    
+    \sol
+    
+    \item A lo mas haya 16 personas infectadas
+    
+    \sol
+
+    \item Haya entre 12 y 14 personas infectadas
+    
+    \sol
+
+    \item Alguien resulte infectado
+    
+    \sol
+
+\end{itemize}
+
+%%%%%%%%%%%%%%% (2)
+\item En 1693 Samuel Pepys le escribió una carta a Isaac Newton en donde le planteo el siguiente
+problema: ¿Cuál de los siguientes tres planteamientos es mas probable que ocurra?
+\begin{itemize}
+    
+    \item Se lanzan 6 dados y aparece al menos un 6's
+    
+    \sol
+
+    \item Se lanzan 12 dados y aparecen al menos dos 6’s
+    
+    \sol
+    
+    \item Se lanzan 18 dados y aparecen al menos tres 6’s
+    
+    \sol
+\end{itemize}
+    
+Como dato adicional Sir Isaac Newton ademas de ser uno de los mas grandes científicos de la historia,
+durante un gran lapso de su vida fue un funcionario publico, manejo digamos el SAT de lo que hoy es
+el Reino Unido. Y estaba a favor usar la horca o quemar gente si evadian impuestos, eran buenos tiempos.
+
+%%%%%%%%%%%%%%% (3)
+\item Tenemos 2 dados 'A' y 'B', uno de los cuales es standard y el otro tiene 3 caras con 1's y 4
+caras con 4's. Se lanza una moneda: Si cae \emph{Águila} lanzamos el dado 'A' 5 veces mientras que si cae
+\emph{Sol} lanzamos el dado 'B' 5 veces. Sea $X$ la variable aleatoria que denota: El número de veces que
+el '4' aparece
+
+\begin{itemize}
+    \item Obtén P(X=3)
+    
+    \sol
+
+    \item ¿Tendrá $X$ una Distribución Binomial?
+    
+    \sol
+    
+\end{itemize}
+
+%%%%%%%%%%%%%%% (4)
+\item Un viejo juego de dados llamado \emph{Chuck a Luck} popular en el EE.UU. del S XIX. Consiste en que
+un jugador apuesta a algún número entre el 1 y el 6 entonces se lanzan 3 dados. Si el número al que le aposto el jugador
+aparece una, dos o tres veces al lanzar los dados el jugador recibe una, dos o tres veces lo que aposto, mas su apuesta
+inicial y pierde su apuesta inicial en cualquier otro caso. Sea $X$ la variable aleatoria que denota: La ganancia del
+jugador por unidad del principal apostado inicialmente.
+
+\begin{itemize}
+    \item Obtén la función de masa de probabilidad asociada a $X$.
+    
+    \sol
+
+    \item Calcula el Valor esperado de la ganancia del jugador por unidad apostada.
+    
+    \sol
+    
+\end{itemize}
+
+%%%%%%%%%%%%%%% (5)
+\item Si $X \sim Bin(n, p)$.
+
+Prueba que. $\mathds{E}(\frac{1}{X+1}) = \frac{1-(1-p)^{n-1}}{(n+1)p}$
+
+\begin{proof}
+    
+\end{proof}
+
+%%%%%%%%%%%%%%% (6)
+\item Supón que se realizan $n$ volados donde la probabilidad de que caiga 'Sol' es igual a $p$.
+Prueba que la probabilidad de que ocurran un número par de 'Soles' al realizar la serie de lanzamientos es igual a
+$\frac{1}{2}[1+(q-p)^n]$ donde $q=1-p$. Primero demuestra y luego utiliza la siguiente identidad
+\[
+    \sum_{i=0}^{\floor*{\frac{n}{2}}} \binom{n}{2i} p^{2i} q^{n-2i} = 
+        \frac{1}{2}[(p+q)^n + (q-p)^n]
+\]
+Donde $\floor*{\frac{n}{2}}$ es el mayor entero menor igual que $\frac{n}{2}$
+
+\begin{proof}
+    
+\end{proof}
+
+%%%%%%%%%%%%%%% (7)
+\item Sea $X$ una variable aleatoria Poisson con parámetro $\lambda$.
+\begin{itemize}
+    \item Prueba que: $P(X \text{ es 'Par'}) = \frac{1}{2}[1+e^{-2\lambda}]$
+    
+    Utiliza el ejercicio anterior y la relación que existe entre una Variable Aleatoria Poisson y la Binomial.
+
+    \begin{proof}
+        
+    \end{proof}
+    
+    \item Prueba el resultado anterior directamente haciendo uso de la expansión en Serie de Taylor de $e^{-\Lambda}+e^{\lambda}$.
+    
+    \begin{proof}
+        
+    \end{proof}
+    
+\end{itemize}
+
+%%%%%%%%%%%%%%% (8)
+\item Si $X \sim Poisson(\lambda)$
+
+\begin{itemize}    
+    \item Para que valores de $\lambda$ el valor de $P(X=i)$, $i \geq 0$ es máximo.
+    
+    \sol
+    
+    \item Prueba que: $\mathds{E}(X^{n}) = \lambda \mathds{E}[(X+1)^{n-1}]$ y utiliza este resultado para calcular el
+    valor de $\mathds{E}(X^3)$
+
+    \begin{proof}
+        
+    \end{proof}
+
+\end{itemize}
+
+%%%%%%%%%%%%%%% (9)
+\item Se sabe que en una caseta de la Autopista 'México-Queretaro' los vehículos pasan a razón de 16 carros por minuto.
+¿Cual es la probabilidad de que 1000 vehículos atraviesen la caseta en la siguiente hora?
+
+\textit{Hint:} ¿Cuál es la razón por hora?
+
+\sol
+
+%%%%%%%%%%%%%%% (10)
+\item  Jennifer en una visita al Otorrinorrinolaringologo, el medico le recomienda tomar unos suplementos para evitar
+que ella enferme de las vías respiratorias durante el próximo año. Le recomienda seguir una terapia experimental en
+donde ella consumirá alguno de 2 suplementos disponibles durante un tiempo.
+
+Si toma el Suplemento A , El número de veces que Jenny enfermara se espera que sea 1 vez al año posterior a terminar el
+tratamiento mientras que si toma el suplemento B, ella se espera que enferme en 4 ocasiones. El medico tiene igual
+numero de cajas del Suplemento A y B. Y puede elegir cualquiera de ellos con igual probabilidad para darselos a su
+paciente. Si ella se enfermo 3 veces durante el año siguiente a seguir alguno de los tratamientos. ¿Cuál es la
+probabilidad de que ella haya tomado el suplemento B?
+
+\sol
+
+%%%%%%%%%%%%%%% (11)
+\item Schneider una conocida manufacturera produce componentes eléctricos de los cuales aproximadamente el 1\% de ellos
+son defectuosos. Si el departamento de control de calidad elige una gran cantidad de ellos de manera independiente uno
+de otros. ¿Cuál es la probabilidad de que:
+
+\begin{itemize}
+    \item Hayan revisado 110 componentes antes de que hayan encontrado uno defectuoso?
+    
+    \sol
+
+    \item Hayan revisado a lo mas 110 componentes antes de que hayan encontrado uno defectuoso?
+    
+    \sol
+
+    \item Obtén el Numero esperado de componentes que tengan que revisar para que encuentren un componente defectuoso?
+    
+    \sol
+
+\end{itemize}
+
+%%%%%%%%%%%%%%% (12)
+\item Una Caja tiene $r$ pelotas rojas y $b$ pelotas azules. Si elegimos una pelota a la vez y sin reemplazo. Sea $X$
+la variable aleatoria que denota el número de extracciones que tenemos que hacer de la urna hasta que la primer bola
+roja es seleccionada.
+
+\begin{itemize}
+    \item Explica por que $X$ no tiene una distribución geométrica
+    
+    \sol
+
+    \item Demuestra que la $p_X(i)$ esta dada por:
+    $p_X(i)= \frac{binom{r+b-i}{r-1}}{\binom{r+b}{r}}$ si $i=1,2,\ldots,b+1$
+
+    \begin{proof}
+        
+    \end{proof}
+\end{itemize}
+
+%%%%%%%%%%%%%%% (13)
+\item Si la función generadora de momentos de una Variable Aleatoria Discreta esta definida como:
+\[
+    M(t) = \mathds{E}(e^{tX}) = \sum_{x} e^{tX} p(x)
+\]
+Si $X \sim Geometrica(p)$ Prueba que:
+\begin{itemize}
+    \item $M_X(t) = \frac{pe^t}{1-(1-p)e^t}$
+    
+    \begin{proof}
+        
+    \end{proof}
+
+    \item Utiliza lo anterior para demostrar que: $\mathds{E}(X) = \frac{1}{p}$ y $Var(X) = \frac{1 - p}{p^2}$
+    
+    \begin{proof}
+        
+    \end{proof}
+\end{itemize}
+
+%%%%%%%%%%%%%%% (14)
+\item Si se lanza una moneda honesta hasta que sale Sol por 10ma. Vez. Sea $X$ la variable aleatoria que denota: El
+número de lanzamientos necesarios hasta que salen 10 "Soles". Obtén la función de masa de probabilidad asociada a X y
+el Número de lanzamientos que se espera tengamos que realizar para obtener dicho resultado.
+
+\sol
+
+%%%%%%%%%%%%%%% (15)
+\item Supón que una muestra de tamaño $n$ es seleccionada al azar y sin reemplazo de una urna que contiene $N$ pelotas de
+las cuales $m$ son blancas y $M-N$ son negras. Sea $X$ la variable aleatoria que denota: El número de pelotas
+blancas seleccionadas.
+
+\begin{itemize}
+    \item Obtén la función de masa de probabilidad de la Variable Aleatoria $X$
+    
+    \sol
+
+    \item Calcula $\mathds{E}(X)$ y $Var(X)$
+    
+    \sol
+
+\end{itemize}
+
+%%%%%%%%%%%%%%% (16)
+\item Una escuela compra un lote de 100 focos de los cuales hay 6 defectuosos y los 94 restantes del lote funcionan
+correctamente, Si el personal de intendencia elige un foco al azar de este lote para reparar una lampara del plantel y
+para ello elige 10 focos de la caja y va probando uno a uno cuales de ellos sirven. Sea $X$ la variable aleatoria
+que denota: El número de focos defectuosos encontrados en la muestra. Obten
+
+\begin{itemize}
+    \item $P(X = 0)$
+    
+    \sol
+
+    \item $P(X > 2)$
+    
+    \sol
+
+\end{itemize}
+    
+
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
