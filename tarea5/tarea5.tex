@@ -25,6 +25,7 @@
 
 \usepackage{listings}
 \usepackage{color}
+\usepackage{fontawesome}
 \usepackage{graphicx}
 \usepackage{enumerate}
 \usepackage{enumitem}
@@ -143,22 +144,36 @@
 \item Si cada persona en una comunidad de 1000 habitantes tiene un 1\% de chances de resultar
 infectado de un peligroso virus. Suponiendo que una persona resulta infectada independientemente de
 lo que ocurra con otra persona de la comunidad. Calcula la probabilidad de que:
+
+\sol Sea $X$ la variable aleatoria que representa el número de gente infectada.
+
+Recordando que la f.m.p de una variable aleatoria que se destribuye binomial, ósea $X \sim Bin(n,p)$ con
+parámetros $(n,p)$ está dada por:
+\[
+    p(i) = \binom{n}{i} p^n (1-p)^{n-i} \qquad i = 0,1,\ldots,n
+\]
+
+
 \begin{itemize}
     \item Exactamente haya 10 personas infectadas
     
     \sol
+    $$P(X=10) = \binom{1000}{10} (0.01)^10 (0.99)^{990} \approx 0.12574$$
     
     \item A lo mas haya 16 personas infectadas
     
     \sol
+    $$P(X \leq 16) = \sum_{i=0}^{16} \binom{1000}{i} (0.01)^i (0.99)^{100-i} \approx 0.9736$$
 
     \item Haya entre 12 y 14 personas infectadas
     
     \sol
+    $$P(12 \leq X \leq 14) = \sum_{i=12}^{14} \binom{1000}{i} (0.01)^i (0.99)^{100-i} \approx 0.22023$$
 
     \item Alguien resulte infectado
     
     \sol
+    $$P(X \geq 1) = 1 - P(X = 0) = 1 - \binom{1000}{0} = 1 - 0.99^{1000} \approx 0.9999$$
 
 \end{itemize}
 
@@ -169,15 +184,35 @@ problema: ¿Cuál de los siguientes tres planteamientos es mas probable que ocur
     
     \item Se lanzan 6 dados y aparece al menos un 6's
     
-    \sol
+    \sol La probabilidad de que aparezca un 6 en un dado es $\frac{1}{6}$ pero si obtenemos el complemento
+    que es $1-\frac{1}{6} = \frac{5}{6}$ que es que no aparezca un 6. Hacemos esto porque nos pide
+    calcular \textit{al menos} $6n$ veces (esto nos ayudará para los demás ejercicios).
+
+    Entonces denotamos a $X$ v.a. como el número de 6's que aparecen en $6n$ dados, entonces\\
+    $X \sim Bin(n, \frac{1}{6})$. Teniendo una versión generalizada como,
+    \[
+        P(X=x) = 1 - \binom{6n}{x} (\frac{1}{6})^{x} (\frac{5}{6})^{6n-x}
+    \]
+    
+    Entonces si lanzamos un dado 6 veces, ósea $X \sim Bin(1, \frac{1}{6})$
+    \[
+        P(X \geq 1) = 1 - P(X = 0) = 1 - \binom{6}{0} (\frac{1}{6})^0 (\frac{5}{6})^6  \approx 0.6651
+    \]
 
     \item Se lanzan 12 dados y aparecen al menos dos 6’s
     
-    \sol
+    \sol $X \sim Bin(2, \frac{1}{6})$
+
+    \[
+        P(X \geq 2) = 1 - \sum_{x=0}^{1} P(X = x)  \approx 0.6187
+    \]
     
     \item Se lanzan 18 dados y aparecen al menos tres 6’s
     
-    \sol
+    \sol $X \sim Bin(3, \frac{1}{6})$
+    \[
+        P(X \geq 2) = 1 - \sum_{x=0}^{2} P(X = x) \approx 0.5973
+    \]
 \end{itemize}
     
 Como dato adicional Sir Isaac Newton ademas de ser uno de los mas grandes científicos de la historia,
@@ -185,21 +220,7 @@ durante un gran lapso de su vida fue un funcionario publico, manejo digamos el S
 el Reino Unido. Y estaba a favor usar la horca o quemar gente si evadian impuestos, eran buenos tiempos.
 
 %%%%%%%%%%%%%%% (3)
-\item Tenemos 2 dados 'A' y 'B', uno de los cuales es standard y el otro tiene 3 caras con 1's y 4
-caras con 4's. Se lanza una moneda: Si cae \emph{Águila} lanzamos el dado 'A' 5 veces mientras que si cae
-\emph{Sol} lanzamos el dado 'B' 5 veces. Sea $X$ la variable aleatoria que denota: El número de veces que
-el '4' aparece
-
-\begin{itemize}
-    \item Obtén P(X=3)
-    
-    \sol
-
-    \item ¿Tendrá $X$ una Distribución Binomial?
-    
-    \sol
-    
-\end{itemize}
+\item \faFrownO
 
 %%%%%%%%%%%%%%% (4)
 \item Un viejo juego de dados llamado \emph{Chuck a Luck} popular en el EE.UU. del S XIX. Consiste en que
@@ -211,22 +232,59 @@ jugador por unidad del principal apostado inicialmente.
 \begin{itemize}
     \item Obtén la función de masa de probabilidad asociada a $X$.
     
-    \sol
+    \sol Asumiendo que el dado es \emph{justo} y cada evento es independiente del otro, entonces el número de veces que
+    el número de apuesta que aparece es una \textbf{variable aleatoria binomial} con parámetros $(3, \frac{1}{6})$.
+    Por lo tanto la f.m.p. es: (evaluando con los valores).
+    $$p(i) = \binom{3}{i}p^i(1-\frac{1}{6})^{3-i}$$
+
 
     \item Calcula el Valor esperado de la ganancia del jugador por unidad apostada.
     
     \sol
+    Obteniendo la probabilidad de que pierda una unidad y que gane 1,2 y unidades,
+    \begin{align*}
+        P(X=-1) = \binom{3}{0} (\frac{1}{6})^0 (\frac{5}{6})^3 = \frac{125}{216}\\
+        P(X=1) = \binom{3}{1} (\frac{1}{6})^1 (\frac{5}{6})^2 = \frac{75}{216}\\
+        P(X=2) = \binom{3}{2} (\frac{1}{6})^2 (\frac{5}{6})^1 = \frac{15}{216}\\
+        P(X=3) = \binom{3}{3} (\frac{1}{6})^3 (\frac{5}{6})^0 = \frac{1}{216}\\
+    \end{align*}
     
+    Obteniendo el valor esperado,
+    \begin{align*}
+        \mathds{E}(X)
+            &= -1 \cdot \frac{125}{216} + 1 \cdot \frac{75}{216} + 2 \cdot \frac{15}{216}
+                + 3 \cdot \frac{1}{216}\\
+            &= \frac{-17}{216}
+    \end{align*}
 \end{itemize}
 
 %%%%%%%%%%%%%%% (5)
 \item Si $X \sim Bin(n, p)$.
 
-Prueba que. $\mathds{E}(\frac{1}{X+1}) = \frac{1-(1-p)^{n-1}}{(n+1)p}$
+Prueba que $\mathds{E}(\frac{1}{X+1}) = \frac{1-(1-p)^{n+1}}{(n+1)p}$
 
 \begin{proof}
-    
+\begin{align*}
+    \mathds{E}(\frac{1}{X+1})
+        &= \sum_{k=0}^{n} \frac{1}{k+1} f(k) && \text{Def. esperanza}\\
+        &= \sum_{k=0}^{n} \frac{1}{k+1} \binom{n}{k} p^k (1-p)^{n-k} && \text{Por hip. $X \sim Bin$}\\
+        &= \sum_{k=0}^{n} \frac{1}{k+1} \frac{n!}{k!(n-k)!} p^k (1-p)^{n-k} && \text{Reescribiendo coef. binomial}\\
+        &= \sum_{k=0}^{n} \frac{n!}{(k+1)!(n-k)!} p^k (1-p)^{n-k} && \text{Álgebra}\\
+        &= \frac{1}{(n+1)p}\sum_{k=0}^{n} \frac{(n+1)!}{(k+1)!(n-k)!} p^{k+1} (1-p)^{n-k} && \text{Multip. por $1=\frac{(n+1)p}{(n+1)p}$}\\
+        &= \frac{1}{(n+1)p}\sum_{k=0}^{n} \frac{(n+1)!}{(k+1)!((n+1)-(k+1))!} p^{k+1} (1-p)^{(n+1)-(k+1)} && \text{Reescribiendo $n-k$}\\
+        &= \frac{1}{(n+1)p}\sum_{k=1}^{n+1} \frac{(n+1)!}{k!((n-1)-k)!} p^{k} (1-p)^{(n+1)k} && \text{Cambiando límites de la suma}\\
+        &= \frac{1}{(n+1)p} \underbrace{\sum_{k=1}^{n+1} \frac{(n+1)!}{k!((n-1)-k)!} p^{k} (1-p)^{(n+1)k}}_{\text{Consideramos $Bin(n+1,k)$ teniendo así $1 - (1-p)^n$}}
+            && \text{Observación previa}\\
+        &= \frac{1}{(n+1)p} \cdot (1 - (1-p)^{n+1}) && \text{Sustituyendo}\\
+        &= \frac{1 - (1-p)^{n+1}}{(n+1)p}
+\end{align*}
 \end{proof}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.25]{triste1.jpg}
+    \caption{Siempre que veo una nueva tarea de proba \faFrownO}
+\end{figure}
 
 %%%%%%%%%%%%%%% (6)
 \item Supón que se realizan $n$ volados donde la probabilidad de que caiga 'Sol' es igual a $p$.
@@ -239,7 +297,30 @@ $\frac{1}{2}[1+(q-p)^n]$ donde $q=1-p$. Primero demuestra y luego utiliza la sig
 Donde $\floor*{\frac{n}{2}}$ es el mayor entero menor igual que $\frac{n}{2}$
 
 \begin{proof}
-    
+    Consideremos las siguientes dos igualdades:
+    \[
+        (p+q)^n = \sum_{k=0}^{n} \binom{n}{k} p^k (1-p)^{n-k}\tag{1}
+        \]
+    \[
+        (p-q)^n = \sum_{k=0}^{n} \binom{n}{k} (-p)^k (1-p)^{n-k}   \tag{2}
+    \]
+    Si sumamos (1) y (2), entonces todos los términos $k$ son de la forma $k=2i$, teniendo así,
+    \[
+        (p+q)^n + (p-q)^n = 2 \sum_{k \text{ par}}^{n} \binom{n}{k} (-p)^k (1-p)^{n-k}
+    \]
+    Reescribiéndola como,
+    \[
+        \sum_{i=0}^{\floor*{\frac{n}{2}}} \binom{n}{2i} p^{2i} q^{n-2i} = 
+            \frac{1}{2}[(p+q)^n + (q-p)^n]
+    \]
+    Entonces
+    \begin{align*}
+        P(X = \text{ número par de Soles})
+            &= \frac{1}{2} [(p+q)^n + (q-p)^n]\\
+            &= \frac{1}{2} [(1 + (q-p)^n]
+    \end{align*}
+
+
 \end{proof}
 
 %%%%%%%%%%%%%%% (7)
@@ -250,33 +331,59 @@ Donde $\floor*{\frac{n}{2}}$ es el mayor entero menor igual que $\frac{n}{2}$
     Utiliza el ejercicio anterior y la relación que existe entre una Variable Aleatoria Poisson y la Binomial.
 
     \begin{proof}
-        
+        Recordando que una variable aleatoria $X$ que tomar valores $0,1,2\ldots$ se dice que se distribuye
+        \emph{Poisson} con parámetro $\lambda$, si para alguna $\lambda > 0,$
+        \[
+            p(i) = P(X=i) = e^{-\lambda}\frac{\lambda^{i}}{i!} \qquad i = 0,1,2,\ldots
+        \]
+        Sea $p\in[0,1]$ y $\lambda=np$ (tomando los parámetros $n$ y $p$ de la Binomial) y tomando la ecuación del 
+        inciso anterior, tenemos que
+        \[
+            P(X \text{ es 'Par'}) = \frac{1}{2}(1+(1-2p)^n) = \frac{1}{2}(1+(1-2\frac{\lambda}{n})^n)
+        \]
+        Y si aplicamos el límite cuando $n \to \infty$, entonces,
+        \[
+            \lim_{n \to \infty}P(X \text{ es 'Par'}) = \lim_{n \to \infty} \frac{1}{2}(1+(1-2\frac{\lambda}{n})^n) =
+                \frac{1}{2}(1+e^{2\lambda})
+        \]
     \end{proof}
     
-    \item Prueba el resultado anterior directamente haciendo uso de la expansión en Serie de Taylor de $e^{-\Lambda}+e^{\lambda}$.
+    \item Prueba el resultado anterior directamente haciendo uso de la expansión en Serie de Taylor de $e^{-\lambda}+e^{\lambda}$.
     
     \begin{proof}
-        
+        Usando la expansión de Taylor de una función exponencial se tiene:
+        \[
+            P(X \text{ es 'Par'}) = P(X = 2k) = \sum_{k=0}^{\infty}\frac{\lambda^{2k}}{(2k)!}e^{-\lambda} =
+                e^{-\lambda} \cdot \frac{e^{\lambda} + e^{-\lambda}}{2} = \frac{1 + e^{-2\lambda}}{2}
+        \]
+        La serie de Taylor de $e^\lambda$ es:
+        \[
+            e^\lambda = \sum_{k=0}^{\infty} \frac{\lambda^k}{k!} \tag{1}
+        \]
+        La serie de Taylor de $e^{-\lambda}$ es:
+        \[
+            e^{-\lambda} = \sum_{k=0}^{\infty} \frac{(-\lambda)^k}{k!} \tag{2}
+        \]
+        Sumando (1) y (2), se tiene,
+        \[
+            e^\lambda + e^{-\lambda} =
+            \sum_{k=0}^{\infty} \frac{\lambda^k}{k!} + \sum_{k=0}^{\infty} \frac{(-\lambda)^k}{k!} =
+            2 \sum_{k=0}^{\infty} \frac{\lambda^{2k}}{(2k)!}
+        \]
+        Por lo tanto,
+        \begin{align*}
+            P(X \text{ es 'Par'})
+                &= e^{-\lambda}(\sum_{k=0}^{\infty}\frac{\lambda^{2k}}{(2k)!})\\
+                &= e^{-\lambda}(\frac{\sum_{k=0}^{\infty}\frac{\lambda^{2k}}{(2k)!}}{2})\\
+                &= e^{-\lambda}(\frac{e^\lambda + e^{-\lambda}}{2})\\
+                &= \frac{1}{2} (1 + e^{-2\lambda})
+        \end{align*}
     \end{proof}
     
 \end{itemize}
 
 %%%%%%%%%%%%%%% (8)
-\item Si $X \sim Poisson(\lambda)$
-
-\begin{itemize}    
-    \item Para que valores de $\lambda$ el valor de $P(X=i)$, $i \geq 0$ es máximo.
-    
-    \sol
-    
-    \item Prueba que: $\mathds{E}(X^{n}) = \lambda \mathds{E}[(X+1)^{n-1}]$ y utiliza este resultado para calcular el
-    valor de $\mathds{E}(X^3)$
-
-    \begin{proof}
-        
-    \end{proof}
-
-\end{itemize}
+\item \faFrownO
 
 %%%%%%%%%%%%%%% (9)
 \item Se sabe que en una caseta de la Autopista 'México-Queretaro' los vehículos pasan a razón de 16 carros por minuto.
@@ -284,101 +391,41 @@ Donde $\floor*{\frac{n}{2}}$ es el mayor entero menor igual que $\frac{n}{2}$
 
 \textit{Hint:} ¿Cuál es la razón por hora?
 
-\sol
+\sol Dice que pasa 16 autos por minuto pero nos interesa tener cuantos pasan por hora, entonces lo
+multiplicqmos por 60, teniendo así que la razón es de 960 autos por hora. Y justamente esa razón de
+cambio es nuestro parámetro $\lambda=960$.
+
+Sea $X$ la v.a. que denota el número de autos que atraviesan la caseta por hora.\\
+Teniendo así $X \sim Poi(960)$.
+
+Entonces lo que buscamos es $P(X>=1000)$, como no es \emph{fácil} de calcular por medios convencionales,
+usaré una calculadora\footnote{\url{https://stattrek.com/online-calculator/poisson.aspx}}.
+
+Por lo tanto $P(X\geq1000)=0.10175$
 
 %%%%%%%%%%%%%%% (10)
-\item  Jennifer en una visita al Otorrinorrinolaringologo, el medico le recomienda tomar unos suplementos para evitar
-que ella enferme de las vías respiratorias durante el próximo año. Le recomienda seguir una terapia experimental en
-donde ella consumirá alguno de 2 suplementos disponibles durante un tiempo.
-
-Si toma el Suplemento A , El número de veces que Jenny enfermara se espera que sea 1 vez al año posterior a terminar el
-tratamiento mientras que si toma el suplemento B, ella se espera que enferme en 4 ocasiones. El medico tiene igual
-numero de cajas del Suplemento A y B. Y puede elegir cualquiera de ellos con igual probabilidad para darselos a su
-paciente. Si ella se enfermo 3 veces durante el año siguiente a seguir alguno de los tratamientos. ¿Cuál es la
-probabilidad de que ella haya tomado el suplemento B?
-
-\sol
+\item \faFrownO
 
 %%%%%%%%%%%%%%% (11)
-\item Schneider una conocida manufacturera produce componentes eléctricos de los cuales aproximadamente el 1\% de ellos
-son defectuosos. Si el departamento de control de calidad elige una gran cantidad de ellos de manera independiente uno
-de otros. ¿Cuál es la probabilidad de que:
-
-\begin{itemize}
-    \item Hayan revisado 110 componentes antes de que hayan encontrado uno defectuoso?
-    
-    \sol
-
-    \item Hayan revisado a lo mas 110 componentes antes de que hayan encontrado uno defectuoso?
-    
-    \sol
-
-    \item Obtén el Numero esperado de componentes que tengan que revisar para que encuentren un componente defectuoso?
-    
-    \sol
-
-\end{itemize}
+\item \faFrownO
 
 %%%%%%%%%%%%%%% (12)
-\item Una Caja tiene $r$ pelotas rojas y $b$ pelotas azules. Si elegimos una pelota a la vez y sin reemplazo. Sea $X$
-la variable aleatoria que denota el número de extracciones que tenemos que hacer de la urna hasta que la primer bola
-roja es seleccionada.
-
-\begin{itemize}
-    \item Explica por que $X$ no tiene una distribución geométrica
-    
-    \sol
-
-    \item Demuestra que la $p_X(i)$ esta dada por:
-    $p_X(i)= \frac{binom{r+b-i}{r-1}}{\binom{r+b}{r}}$ si $i=1,2,\ldots,b+1$
-
-    \begin{proof}
-        
-    \end{proof}
-\end{itemize}
+\item \faFrownO
 
 %%%%%%%%%%%%%%% (13)
-\item Si la función generadora de momentos de una Variable Aleatoria Discreta esta definida como:
-\[
-    M(t) = \mathds{E}(e^{tX}) = \sum_{x} e^{tX} p(x)
-\]
-Si $X \sim Geometrica(p)$ Prueba que:
-\begin{itemize}
-    \item $M_X(t) = \frac{pe^t}{1-(1-p)e^t}$
-    
-    \begin{proof}
-        
-    \end{proof}
-
-    \item Utiliza lo anterior para demostrar que: $\mathds{E}(X) = \frac{1}{p}$ y $Var(X) = \frac{1 - p}{p^2}$
-    
-    \begin{proof}
-        
-    \end{proof}
-\end{itemize}
+\item \faFrownO
 
 %%%%%%%%%%%%%%% (14)
-\item Si se lanza una moneda honesta hasta que sale Sol por 10ma. Vez. Sea $X$ la variable aleatoria que denota: El
-número de lanzamientos necesarios hasta que salen 10 "Soles". Obtén la función de masa de probabilidad asociada a X y
-el Número de lanzamientos que se espera tengamos que realizar para obtener dicho resultado.
-
-\sol
+\item \faFrownO
 
 %%%%%%%%%%%%%%% (15)
-\item Supón que una muestra de tamaño $n$ es seleccionada al azar y sin reemplazo de una urna que contiene $N$ pelotas de
-las cuales $m$ son blancas y $M-N$ son negras. Sea $X$ la variable aleatoria que denota: El número de pelotas
-blancas seleccionadas.
+\item \faFrownO
 
-\begin{itemize}
-    \item Obtén la función de masa de probabilidad de la Variable Aleatoria $X$
-    
-    \sol
-
-    \item Calcula $\mathds{E}(X)$ y $Var(X)$
-    
-    \sol
-
-\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.22]{ponido.jpg}
+    \caption{Yo había \textit{ponido} las demás respuestas aquí \faFrownO}
+\end{figure}
 
 %%%%%%%%%%%%%%% (16)
 \item Una escuela compra un lote de 100 focos de los cuales hay 6 defectuosos y los 94 restantes del lote funcionan
@@ -386,14 +433,28 @@ correctamente, Si el personal de intendencia elige un foco al azar de este lote 
 para ello elige 10 focos de la caja y va probando uno a uno cuales de ellos sirven. Sea $X$ la variable aleatoria
 que denota: El número de focos defectuosos encontrados en la muestra. Obten
 
+\sol Recordando la distribución Hipergeométrica, $X \sim Hip(N,n,m)$, entonces,
+\[
+    P(X=i) = \frac{\binom{m}{i}\cdot\binom{N-m}{n-i}}{\binom{N}{n}}
+\]
+
 \begin{itemize}
     \item $P(X = 0)$
     
     \sol
+    \[
+        P(X=0) = \frac{\binom{6}{0}\binom{94}{100}}{\binom{100}{10}} \approx 0.522
+    \]
 
     \item $P(X > 2)$
     
     \sol
+    \begin{align*}
+        P(X=2)
+            &= 1 - P(X \leq 2) = 1 - [P(X=0) + P(X=1) + P(X=2)]\\
+            &= 1 - [0.522 - \frac{\binom{6}{1}\binom{94}{9}}{\binom{100}{10}} - \frac{\binom{6}{2}\binom{94}{8}}{\binom{100}{10}}]\\
+            &= 0.0125
+    \end{align*}
 
 \end{itemize}
     
